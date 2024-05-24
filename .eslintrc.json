@@ -1,3 +1,25 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": ["next/core-web-vitals", "import/recommended"],
+  "plugins": ["import"],
+  "rules": {
+    "eslint-plugin-import/no-absolute-path": "error",
+    "eslint-plugin-import/no-deprecated": "warn",
+    "eslint-plugin-import/no-duplicates": "error",
+    "eslint-plugin-import/no-unused-modules": "error",
+    "eslint-plugin-import/order": [
+      "error",
+      {
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          "parent",
+          "sibling",
+          "child",
+          "index"
+        ],
+        "newlines-between": "always"
+      }
+    ]
+  }
 }
