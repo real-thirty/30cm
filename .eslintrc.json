@@ -1,12 +1,12 @@
 {
-  "extends": ["next/core-web-vitals", "import/recommended"],
-  "plugins": ["import"],
+  "extends": ["next/core-web-vitals"],
+  "plugins": ["import", "unused-imports"],
   "rules": {
-    "eslint-plugin-import/no-absolute-path": "error",
-    "eslint-plugin-import/no-deprecated": "warn",
-    "eslint-plugin-import/no-duplicates": "error",
-    "eslint-plugin-import/no-unused-modules": "error",
-    "eslint-plugin-import/order": [
+    "unused-imports/no-unused-imports": "error",
+    "import/no-absolute-path": "error",
+    "import/no-deprecated": 2,
+    "import/no-duplicates": "error",
+    "import/order": [
       "error",
       {
         "groups": [
@@ -15,7 +15,6 @@
           "internal",
           "parent",
           "sibling",
-          "child",
           "index"
         ],
         "newlines-between": "always"
