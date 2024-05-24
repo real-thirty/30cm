@@ -11,12 +11,14 @@ specifiers:
   react: ^18
   react-dom: ^18
   typescript: ^5
+  zustand: ^4.5.2
 
 dependencies:
   antd: 5.17.3_nnrd3gsncyragczmpvfhocinkq
   next: 14.2.3_nnrd3gsncyragczmpvfhocinkq
   react: 18.3.1
   react-dom: 18.3.1_react@18.3.1
+  zustand: 4.5.2_3vdbhqr2ncalcx7opnshezpx3q
 
 devDependencies:
   '@types/node': 20.12.12
@@ -432,14 +434,7 @@ packages:
       '@types/prop-types': 15.7.12
       csstype: 3.1.3
 
-<<<<<<< HEAD
   /@typescript-eslint/parser/7.2.0_te743w6atip6hhlha3uq43n2xe:
-=======
-  /@types/scheduler@0.23.0:
-    resolution: {integrity: sha512-YIoDCTH3Af6XM5VuwGG/QL/CJqga1Zm3NkU3HZ4ZHK2fRMPYP1VczsTUqtsf43PH/iJNVlPHAo2oWX7BSdB2Hw==}
-
-  /@typescript-eslint/parser@7.2.0(eslint@8.0.0)(typescript@5.0.2):
->>>>>>> 78bc2ce2153ace5a20bd1f56d889d5952b548cbd
     resolution: {integrity: sha512-5FKsVcHTk6TafQKQbuIVkXq58Fnbkd2wDL4LB7AURN7RUOu1utVP+G8+6u3ZhEroW3DF6hyo3ZEXxgKgp4KeCg==}
     engines: {node: ^16.0.0 || >=18.0.0}
     peerDependencies:
@@ -3216,23 +3211,15 @@ packages:
       punycode: 2.3.1
     dev: true
 
-<<<<<<< HEAD
-  /which-boxed-primitive/1.0.2:
-=======
-  /use-sync-external-store@1.2.0(react@18.0.0):
+  /use-sync-external-store/1.2.0_react@18.3.1:
     resolution: {integrity: sha512-eEgnFxGQ1Ife9bzYs6VLi8/4X6CObHMw9Qr9tPY43iKwsPw8xE8+EFsf/2cFZ5S3esXgpWgtSCtLNS41F+sKPA==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
     dependencies:
-      react: 18.0.0
+      react: 18.3.1
     dev: false
 
-  /v8-compile-cache@2.4.0:
-    resolution: {integrity: sha512-ocyWc3bAHBB/guyqJQVI5o4BZkPhznPYUG2ea80Gond/BgNWpap8TOmLSeeQG7bnh2KMISxskdADG59j7zruhw==}
-    dev: true
-
-  /which-boxed-primitive@1.0.2:
->>>>>>> 78bc2ce2153ace5a20bd1f56d889d5952b548cbd
+  /which-boxed-primitive/1.0.2:
     resolution: {integrity: sha512-bwZdv0AKLpplFY2KZRX6TvyuN7ojjr7lwkg6ml0roIy9YeuSr7JS372qlNW18UQYzgYK9ziGcerWqZOmEn9VNg==}
     dependencies:
       is-bigint: 1.0.4
@@ -3316,13 +3303,12 @@ packages:
     resolution: {integrity: sha512-l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ==}
     dev: true
 
-<<<<<<< HEAD
   /yocto-queue/0.1.0:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
     dev: true
-=======
-  /zustand@4.5.2(@types/react@18.0.0)(react@18.0.0):
+
+  /zustand/4.5.2_3vdbhqr2ncalcx7opnshezpx3q:
     resolution: {integrity: sha512-2cN1tPkDVkwCy5ickKrI7vijSjPksFRfqS6237NzT0vqSsztTNnQdHw9mmN7uBdk3gceVXU0a+21jFzFzAc9+g==}
     engines: {node: '>=12.7.0'}
     peerDependencies:
@@ -3337,8 +3323,7 @@ packages:
       react:
         optional: true
     dependencies:
-      '@types/react': 18.0.0
-      react: 18.0.0
-      use-sync-external-store: 1.2.0(react@18.0.0)
+      '@types/react': 18.3.3
+      react: 18.3.1
+      use-sync-external-store: 1.2.0_react@18.3.1
     dev: false
->>>>>>> 78bc2ce2153ace5a20bd1f56d889d5952b548cbd
