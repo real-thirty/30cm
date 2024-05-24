@@ -2,16 +2,16 @@ lockfileVersion: 5.4
 
 specifiers:
   '@tanstack/react-query': ^5.37.1
-  '@types/node': ^20
-  '@types/react': ^18
-  '@types/react-dom': ^18
+  '@types/node': ^20.12.12
+  '@types/react': ^18.3.3
+  '@types/react-dom': ^18.3.0
   antd: ^5.17.3
-  eslint: ^8
+  eslint: ^8.57.0
   eslint-config-next: 14.2.3
   next: 14.2.3
-  react: ^18
-  react-dom: ^18
-  typescript: ^5
+  react: ^18.3.1
+  react-dom: ^18.3.1
+  typescript: ^5.4.5
   zustand: ^4.5.2
 
 dependencies:
