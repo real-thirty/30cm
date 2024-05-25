@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import SupabaseProvider from "./providers/supabase/supabase-provider";
 import { QueryProvider } from "./providers/tanstack-query/query-provider";
+import { UserContextProvider } from "./providers/supabase/user-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,7 +22,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <SupabaseProvider>
-          <QueryProvider>{children}</QueryProvider>
+          <UserContextProvider>
+            <QueryProvider>{children}</QueryProvider>
+          </UserContextProvider>
         </SupabaseProvider>
       </body>
     </html>
