@@ -14,4 +14,13 @@ export const useProductListQuery = (from:number, to:number) => {
   });
 };
 
+export const useProductListCountQuery = () => {
+  const supabase = useSupabaseBrowser()
+
+  return useQuery({
+    queryKey: [productQueryKey.product],
+    queryFn: () => ProductService.getProductListCount(supabase)
+  })
+}
+
 

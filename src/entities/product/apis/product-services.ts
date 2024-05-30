@@ -9,6 +9,11 @@ export const ProductService = {
       .throwOnError()
       .then((response) =>response.data);
   },
+  getProductListCount: async(client: SupabaseClient)=>{
+    return client
+      .from("products")
+      .select("*", {count: 'exact', head: true}) 
+  },
   getProductById: async (client: SupabaseClient, id: number) => {
     return client
       .from("products")

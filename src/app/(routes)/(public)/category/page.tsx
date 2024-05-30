@@ -6,6 +6,7 @@ import { useState } from "react";
 
 import {
   useCategoryListQuery,
+  useProductListCountQuery,
   useProductListQuery,
 } from "@/entities/product/hooks/queries";
 
@@ -27,14 +28,15 @@ const productBoxStyle: React.CSSProperties = {
 
 export default function Page() {
   const [nowPage, setNowPage] = useState(1);
-  const { data: productList, isSuccess } = useProductListQuery(
-    (nowPage - 1) * PAGESIZE,
-    nowPage * PAGESIZE - 1
-  );
+  const { data: productList, isSuccess: productListIsSuccess } =
+    useProductListQuery((nowPage - 1) * PAGESIZE, nowPage * PAGESIZE - 1);
   const { data: categoryList, isSuccess: categoryIsSuccess } =
     useCategoryListQuery();
 
-  if (!isSuccess && !categoryIsSuccess) {
+  const { data, isSuccess } = useProductListCountQuery();
+  console.log(data);
+
+  if (!productListIsSuccess && !categoryIsSuccess && !isSuccess) {
     return <div>Loading</div>;
   }
   console.log("렌더링");
@@ -101,7 +103,7 @@ export default function Page() {
                 setNowPage(page);
               }}
               showSizeChanger={false}
-              total={50}
+              total={data?.count ?? 0}
             />
           </Row>
         </Layout>
