@@ -1,7 +1,8 @@
 "use client";
 
-import { Col, Row, Layout } from "antd";
+import { Col, Row, Layout, Pagination } from "antd";
 import Image from "next/image";
+import { useState } from "react";
 
 import {
   useCategoryListQuery,
@@ -15,8 +16,7 @@ const sortStyle: React.CSSProperties = {
   padding: "20px",
   boxShadow: "2px 0 5px rgba(0,0,0,0.1)",
 };
-
-const productListStyle: React.CSSProperties = {};
+const PAGESIZE = 8;
 
 const productBoxStyle: React.CSSProperties = {
   backgroundColor: "#ffffff",
@@ -26,14 +26,18 @@ const productBoxStyle: React.CSSProperties = {
 };
 
 export default function Page() {
-  const { data, isSuccess } = useProductListQuery();
+  const [nowPage, setNowPage] = useState(1);
+  const { data: productList, isSuccess } = useProductListQuery(
+    (nowPage - 1) * PAGESIZE,
+    nowPage * PAGESIZE - 1
+  );
   const { data: categoryList, isSuccess: categoryIsSuccess } =
     useCategoryListQuery();
 
   if (!isSuccess && !categoryIsSuccess) {
     return <div>Loading</div>;
   }
-
+  console.log("렌더링");
   return (
     <div style={{ padding: "60px 50px 200px" }}>
       <span style={{ fontSize: "14px 0 0" }}>남성가방</span>
@@ -59,8 +63,8 @@ export default function Page() {
           ))}
         </Sider>
         <Layout style={{ flex: 4, backgroundColor: "white" }}>
-          <Row gutter={[5, 20]} style={{}}>
-            {data?.map((product) => (
+          <Row gutter={[5, 20]} style={{ justifyContent: "center" }}>
+            {productList?.map((product) => (
               <Col
                 key={product.product_id}
                 xs={{ flex: "100%" }}
@@ -71,7 +75,7 @@ export default function Page() {
                 style={{
                   boxShadow: "0 2px 5px rgba(0,0,0,0.1)",
                   borderRadius: "7px",
-                  margin: "5px",
+                  margin: "5px 0 0",
                 }}
               >
                 <div>
@@ -91,6 +95,14 @@ export default function Page() {
                 </div>
               </Col>
             ))}
+            <Pagination
+              defaultCurrent={1}
+              onChange={(page) => {
+                setNowPage(page);
+              }}
+              showSizeChanger={false}
+              total={50}
+            />
           </Row>
         </Layout>
       </Layout>
