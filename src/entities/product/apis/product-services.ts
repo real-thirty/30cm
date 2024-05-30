@@ -12,7 +12,7 @@ export const ProductService = {
     return client
       .from("products")
       .select("*")
-      .eq("id", id)
+      .eq("product_id", id)
       .throwOnError()
       .single();
   },

@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
+// eslint-disable-next-line import/order
 import { Inter } from "next/font/google";
 
 import "./globals.css";
+import { AntdRegistry } from "@ant-design/nextjs-registry";
+
 import SupabaseProvider from "./providers/supabase/supabase-provider";
 import { QueryProvider } from "./providers/tanstack-query/query-provider";
 import { UserContextProvider } from "./providers/supabase/user-provider";
@@ -21,11 +24,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <SupabaseProvider>
-          <UserContextProvider>
-            <QueryProvider>{children}</QueryProvider>
-          </UserContextProvider>
-        </SupabaseProvider>
+        <AntdRegistry>
+          <SupabaseProvider>
+            <UserContextProvider>
+              <QueryProvider>{children}</QueryProvider>
+            </UserContextProvider>
+          </SupabaseProvider>
+        </AntdRegistry>
       </body>
     </html>
   );

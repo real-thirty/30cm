@@ -13,3 +13,5 @@ export const useProductListQuery = () => {
     queryFn: () => ProductService.getProductList(supabase),
   });
 };
+
+

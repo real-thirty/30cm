@@ -9,7 +9,7 @@ export default function Home() {
       {isSuccess &&
         data?.map((product) => {
           return (
-            <div key={product.id}>
+            <div key={product.product_id}>
               <h2>{product.name}</h2>
               <p>{product.description}</p>
             </div>
