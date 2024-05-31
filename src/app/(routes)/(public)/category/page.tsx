@@ -1,6 +1,7 @@
 "use client";
 
-import { Col, Row, Layout, Pagination } from "antd";
+import { Col, Row, Layout, Pagination, Divider } from "antd";
+import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -10,7 +11,7 @@ import {
   useProductListQuery,
 } from "@/entities/product/hooks/queries";
 
-const { Sider } = Layout;
+const { Sider, Content } = Layout;
 
 const sortStyle: React.CSSProperties = {
   flex: 1,
@@ -32,18 +33,18 @@ export default function Page() {
     useProductListQuery((nowPage - 1) * PAGESIZE, nowPage * PAGESIZE - 1);
   const { data: categoryList, isSuccess: categoryIsSuccess } =
     useCategoryListQuery();
-
   const { data, isSuccess } = useProductListCountQuery();
-  console.log(data);
 
   if (!productListIsSuccess && !categoryIsSuccess && !isSuccess) {
     return <div>Loading</div>;
   }
-  console.log("렌더링");
+
   return (
     <div style={{ padding: "60px 50px 200px" }}>
-      <span style={{ fontSize: "14px 0 0" }}>남성가방</span>
-      <Layout hasSider style={{ margin: "20px 0 0", backgroundColor: "white" }}>
+      <Layout
+        hasSider
+        style={{ margin: "100px 0 0", backgroundColor: "white" }}
+      >
         <Sider
           theme="light"
           style={{
@@ -53,19 +54,30 @@ export default function Page() {
             left: 0,
             top: 0,
             bottom: 0,
+            margin: "0 10px 0 0",
           }}
         >
+          <div></div>
+          <span style={{ fontSize: "20px" }}>남성가방</span>
+          <Divider style={{ margin: "10px 0" }} />
+
           {categoryList?.map((category) => (
             <div
-              style={{ marginTop: "16px", height: "300px" }}
+              style={{ marginTop: "16px", height: "30px" }}
               key={category.category_id}
             >
-              <span style={{ fontSize: "16px" }}>{category.name}</span>
+              <Link href={`/`} style={{ color: "black" }}>
+                <span style={{ fontSize: "16px" }}>{category.name}</span>
+              </Link>
             </div>
           ))}
         </Sider>
-        <Layout style={{ flex: 4, backgroundColor: "white" }}>
-          <Row gutter={[5, 20]} style={{ justifyContent: "center" }}>
+        <Content
+          style={{
+            backgroundColor: "white",
+          }}
+        >
+          <Row gutter={[5, 20]}>
             {productList?.map((product) => (
               <Col
                 key={product.product_id}
@@ -77,26 +89,41 @@ export default function Page() {
                 style={{
                   boxShadow: "0 2px 5px rgba(0,0,0,0.1)",
                   borderRadius: "7px",
-                  margin: "5px 0 0",
+                  margin: "5",
                 }}
               >
                 <div>
-                  <Image
-                    src={product.image ?? ""}
-                    alt=""
-                    width={200}
-                    height={200}
-                    style={{
-                      borderRadius: "7px",
-                      boxShadow: "0 2px 5px rgba(0,0,0,0.1)",
-                    }}
-                  />
-                  <h1>{product.name}</h1>
-                  <span>{product.description}</span>
-                  <p>{product.price}</p>
+                  <Link
+                    href={`/product/${product.product_id}`}
+                    style={{ color: "black" }}
+                  >
+                    <Image
+                      src={product.image ?? ""}
+                      alt=""
+                      width={200}
+                      height={200}
+                      style={{
+                        borderRadius: "7px",
+                        boxShadow: "0 2px 5px rgba(0,0,0,0.1)",
+                      }}
+                    />
+                    <h1 style={{ margin: "0px" }}>{product.name}</h1>
+                    <span>{product.description}</span>
+                    <p>{product.price}</p>
+                  </Link>
                 </div>
               </Col>
             ))}
+          </Row>
+          <Layout
+            style={{
+              margin: "20px",
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "center",
+              backgroundColor: "white",
+            }}
+          >
             <Pagination
               defaultCurrent={1}
               onChange={(page) => {
@@ -105,8 +132,8 @@ export default function Page() {
               showSizeChanger={false}
               total={data?.count ?? 0}
             />
-          </Row>
-        </Layout>
+          </Layout>
+        </Content>
       </Layout>
     </div>
   );
