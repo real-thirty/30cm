@@ -4,3 +4,4 @@ export const productQueryKey = {
   product: [PRODUCT],
   getProduct: (id: string) => [PRODUCT, id],
 };
+

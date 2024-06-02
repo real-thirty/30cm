@@ -5,11 +5,22 @@ import useSupabaseBrowser from "@/shared/hooks/use-supabase";
 import { productQueryKey } from "../../constants";
 import { ProductService } from "../../apis";
 
-export const useProductListQuery = () => {
+export const useProductListQuery = (from:number, to:number) => {
   const supabase = useSupabaseBrowser();
 
   return useQuery({
-    queryKey: productQueryKey.product,
-    queryFn: () => ProductService.getProductList(supabase),
+    queryKey: [productQueryKey.product, from , to],
+    queryFn: () => ProductService.getProductList(supabase, from, to),
   });
 };
+
+export const useProductListCountQuery = () => {
+  const supabase = useSupabaseBrowser()
+
+  return useQuery({
+    queryKey: [productQueryKey.product],
+    queryFn: () => ProductService.getProductListCount(supabase)
+  })
+}
+
+
