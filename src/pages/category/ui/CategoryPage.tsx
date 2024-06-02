@@ -8,9 +8,9 @@ import {
 import { useCategoryListQuery } from "@/entities/category/hooks/queries";
 import {
   CategoryLayout,
-  CategorySidebar,
   ProductListInCategoryLayout,
 } from "@/widgets/category";
+import { CategorySortBySidebar } from "@/features/product";
 
 const SIZEOFPAGE = 8;
 
@@ -31,7 +31,7 @@ export default function CategoryPage() {
   return (
     <div style={{ padding: "60px 50px 200px" }}>
       <CategoryLayout>
-        <CategorySidebar
+        <CategorySortBySidebar
           categories={categoryList}
           largeSort={largeSort}
           onChange={setLargeSort}

@@ -11,7 +11,7 @@ interface props {
   onChange: Dispatch<SetStateAction<string>>;
 }
 
-export function CategorySidebar({ categories, onChange }: props) {
+export function CategorySortBySidebar({ categories, onChange }: props) {
   return (
     <Sider
       theme="light"
