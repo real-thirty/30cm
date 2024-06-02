@@ -4,6 +4,8 @@ import Link from "next/link";
 
 import { Database } from "@/shared/models";
 
+import { formatPrice } from "..";
+
 interface props {
   product: Database["public"]["Tables"]["products"]["Row"];
 }
@@ -35,7 +37,7 @@ export function ProductCardInList({ product }: props) {
         />
         <h1 style={{ margin: "0px" }}>{product.name}</h1>
         <span>{product.description}</span>
-        <p>{product.price}</p>
+        <p>{formatPrice(product.price ?? "0")}</p>
       </Link>
     </Col>
   );
