@@ -1,0 +1,1 @@
+export {ProductCardInList} from './ui/ProductCardInList'

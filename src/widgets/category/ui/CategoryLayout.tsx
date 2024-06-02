@@ -1,8 +1,6 @@
 import { Layout } from "antd";
 import { ReactNode } from "react";
 
-const { Sider, Content } = Layout;
-
 interface props {
   children: ReactNode;
 }

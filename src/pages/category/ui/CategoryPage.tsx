@@ -1,5 +1,4 @@
 "use client";
-
 import { useState } from "react";
 
 import {
@@ -10,13 +9,15 @@ import { useCategoryListQuery } from "@/entities/category/hooks/queries";
 import {
   CategoryLayout,
   CategorySidebar,
-  ProductListInLayout,
+  ProductListInCategoryLayout,
 } from "@/widgets/category";
 
 const SIZEOFPAGE = 8;
 
 export default function CategoryPage() {
   const [nowPage, setNowPage] = useState(1);
+  const [largeSort, setLargeSort] = useState("All");
+
   const { data: productList, isSuccess: productListIsSuccess } =
     useProductListQuery((nowPage - 1) * SIZEOFPAGE, nowPage * SIZEOFPAGE - 1);
   const { data: categoryList, isSuccess: categoryIsSuccess } =
@@ -27,18 +28,19 @@ export default function CategoryPage() {
     return <div>Loading</div>;
   }
 
-  if (!productList || !categoryList || !totalSizeData) {
-    return <div>데이터를 찾을 수 없습니다.</div>;
-  }
-
   return (
     <div style={{ padding: "60px 50px 200px" }}>
       <CategoryLayout>
-        <CategorySidebar categories={categoryList} />
-        <ProductListInLayout
+        <CategorySidebar
+          categories={categoryList}
+          largeSort={largeSort}
+          onChange={setLargeSort}
+        />
+        <ProductListInCategoryLayout
           products={productList}
-          totalSize={totalSizeData.count}
-          setNowPage={setNowPage}
+          totalSize={totalSizeData?.count}
+          onChange={setNowPage}
+          nowPage={nowPage}
         />
       </CategoryLayout>
     </div>
