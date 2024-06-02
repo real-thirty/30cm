@@ -1,4 +1,8 @@
 "use client";
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7bcc25b (fix: conflict solved 13)
 import { useState } from "react";
 
 import {
@@ -8,9 +12,15 @@ import {
 import { useCategoryListQuery } from "@/entities/category/hooks/queries";
 import {
   CategoryLayout,
+<<<<<<< HEAD
   ProductListInCategoryLayout,
 } from "@/widgets/category";
 import { CategorySortBySidebar } from "@/features/product";
+=======
+  CategorySidebar,
+  ProductListInLayout,
+} from "@/widgets/category";
+>>>>>>> 7bcc25b (fix: conflict solved 13)
 
 const SIZEOFPAGE = 8;
 
