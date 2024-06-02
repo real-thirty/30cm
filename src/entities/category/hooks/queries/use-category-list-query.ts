@@ -2,8 +2,9 @@ import { useQuery } from "@tanstack/react-query";
 
 import useSupabaseBrowser from "@/shared/hooks/use-supabase";
 
-import { categoryQueryKey } from "../../constants";
+
 import { CategoryService } from "../../apis";
+import { categoryQueryKey } from "../../constants";
 
 
 
