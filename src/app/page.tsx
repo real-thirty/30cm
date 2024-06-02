@@ -2,13 +2,11 @@
 
 import { Flex, Image, Layout } from "antd";
 
-import { useProductListQuery } from "@/entities/product/hooks";
 import { Footer, Header } from "@/shared/ui";
 
 const { Content } = Layout;
 
 export default function Home() {
-  const { data, isSuccess } = useProductListQuery();
   return (
     <main>
       <Layout>
