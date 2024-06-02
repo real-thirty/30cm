@@ -1,14 +1,17 @@
-import { Divider } from "antd";
-import Sider from "antd/es/layout/Sider";
+import { Dispatch, SetStateAction } from "react";
 import Link from "next/link";
+import Sider from "antd/es/layout/Sider";
+import { Divider } from "antd";
 
 import { Database } from "@/shared/models";
 
 interface props {
-  categories: Database["public"]["Tables"]["category"]["Row"][];
+  categories?: Database["public"]["Tables"]["category"]["Row"][] | null;
+  largeSort: string;
+  onChange: Dispatch<SetStateAction<string>>;
 }
 
-export function CategorySidebar({ categories }: props) {
+export function CategorySidebar({ categories, onChange }: props) {
   return (
     <Sider
       theme="light"
