@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+
 import {
   useProductListCountQuery,
   useProductListQuery,
@@ -9,7 +10,7 @@ import {
   CategoryLayout,
   ProductListInCategoryLayout,
 } from "@/widgets/category";
-import { CategorySortBySidebar } from "@/features/product";
+import { CategorySortBySidebar } from "@/features/category";
 
 const SIZEOFPAGE = 8;
 
