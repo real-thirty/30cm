@@ -4,7 +4,7 @@ import Link from "next/link";
 
 import { Database } from "@/shared/models";
 
-import { formatPrice } from "..";
+import { formatPrice } from "../lib";
 
 interface props {
   product: Database["public"]["Tables"]["products"]["Row"];

@@ -12,14 +12,12 @@ import {
 } from "@/widgets/category";
 import { CategorySortBySidebar } from "@/features/category";
 
-const SIZEOFPAGE = 8;
-
 export default function CategoryPage() {
   const [nowPage, setNowPage] = useState(1);
   const [largeSort, setLargeSort] = useState("All");
 
   const { data: productList, isSuccess: productListIsSuccess } =
-    useProductListQuery((nowPage - 1) * SIZEOFPAGE, nowPage * SIZEOFPAGE - 1);
+    useProductListQuery(nowPage);
   const { data: categoryList, isSuccess: categoryIsSuccess } =
     useCategoryListQuery();
   const { data: totalSizeData, isSuccess } = useProductListCountQuery();
