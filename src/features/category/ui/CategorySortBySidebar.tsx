@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
 import Link from "next/link";
 import Sider from "antd/es/layout/Sider";
-import { Divider } from "antd";
+import { Divider, Typography } from "antd";
 
 import { Database } from "@/shared/models";
 
@@ -10,6 +10,8 @@ interface props {
   largeSort: string;
   onChange: Dispatch<SetStateAction<string>>;
 }
+
+const { Title } = Typography;
 
 export function CategorySortBySidebar({ categories, onChange }: props) {
   return (
@@ -34,7 +36,7 @@ export function CategorySortBySidebar({ categories, onChange }: props) {
           key={category.category_id}
         >
           <Link href={`/`} style={{ color: "black" }}>
-            <span style={{ fontSize: "16px" }}>{category.name}</span>
+            <Title level={5}>{category.name}</Title>
           </Link>
         </div>
       ))}
