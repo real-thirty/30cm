@@ -1,15 +1,13 @@
 "use client";
 import { useState } from "react";
+import { Layout } from "antd";
 
 import {
   useProductListCountQuery,
   useProductListQuery,
 } from "@/entities/product/hooks/queries";
 import { useCategoryListQuery } from "@/entities/category/hooks/queries";
-import {
-  CategoryLayout,
-  ProductListInCategoryLayout,
-} from "@/widgets/category";
+import { ProductListInCategoryLayout } from "@/widgets/category";
 import { CategorySortBySidebar } from "@/features/category";
 
 export default function CategoryPage() {
@@ -28,7 +26,10 @@ export default function CategoryPage() {
 
   return (
     <div style={{ padding: "60px 50px 200px" }}>
-      <CategoryLayout>
+      <Layout
+        hasSider
+        style={{ margin: "100px 0 0", backgroundColor: "white" }}
+      >
         <CategorySortBySidebar
           categories={categoryList}
           largeSort={largeSort}
@@ -40,7 +41,7 @@ export default function CategoryPage() {
           onChange={setNowPage}
           nowPage={nowPage}
         />
-      </CategoryLayout>
+      </Layout>
     </div>
   );
 }
