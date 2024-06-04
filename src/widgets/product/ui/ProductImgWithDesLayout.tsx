@@ -6,5 +6,15 @@ interface props {
 }
 
 export function ProductImgWithDesLayout({ children }: props) {
-  return <Layout>{children}</Layout>;
+  return (
+    <Layout
+      style={{
+        backgroundColor: "white",
+        display: "flex",
+        flexDirection: "row",
+      }}
+    >
+      {children}
+    </Layout>
+  );
 }
