@@ -14,7 +14,7 @@ export const ProductService = {
       .from("products")
       .select("*", {count: 'exact', head: true}) 
   },
-  getProductById: async (client: SupabaseClient, id: number) => {
+  getProductById: async (client: SupabaseClient, id: string) => {
     return client
       .from("products")
       .select("*")
