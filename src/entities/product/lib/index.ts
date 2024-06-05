@@ -1,2 +1,2 @@
 export * from "./formatPrice";
-export * from "./sliceProductAmountPerPage";
+export * from "./getRangeIdxFromPage";

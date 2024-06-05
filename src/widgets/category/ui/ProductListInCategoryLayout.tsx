@@ -3,7 +3,7 @@ import { Layout, Pagination, Row } from "antd";
 import Content from "antd/es/layout";
 
 import { Database } from "@/shared/models";
-import { ProductCardInList } from "@/entities/product";
+import { ProductCardInList } from "@/entities/product/ui";
 
 interface props {
   products?: Database["public"]["Tables"]["products"]["Row"][] | null;

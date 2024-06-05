@@ -9,7 +9,7 @@ export function ProductImgWithDesLayout({ children }: props) {
   return (
     <Layout
       style={{
-        backgroundColor: "white",
+        backgroundColor: "green",
         display: "flex",
         flexDirection: "row",
       }}
