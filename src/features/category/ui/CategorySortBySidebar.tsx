@@ -3,10 +3,10 @@ import Link from "next/link";
 import Sider from "antd/es/layout/Sider";
 import { Divider, Typography } from "antd";
 
-import { Database } from "@/shared/models";
+import { Tables } from "@/shared/models";
 
 interface props {
-  categories?: Database["public"]["Tables"]["category"]["Row"][] | null;
+  categories?: Array<Tables<"category">>;
   largeSort: string;
   onChange: Dispatch<SetStateAction<string>>;
 }
