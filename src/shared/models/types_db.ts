@@ -47,10 +47,41 @@ export type Database = {
           },
         ]
       }
+      images: {
+        Row: {
+          created_at: string
+          image_id: number
+          image_url: string 
+          is_title: boolean 
+          product_id: number 
+        }
+        Insert: {
+          created_at?: string
+          image_id?: number
+          image_url?: string | null
+          is_title?: boolean | null
+          product_id?: number | null
+        }
+        Update: {
+          created_at?: string
+          image_id?: number
+          image_url?: string | null
+          is_title?: boolean | null
+          product_id?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "images_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["product_id"]
+          },
+        ]
+      }
       products: {
         Row: {
           active: boolean | null
-          category_id: number
           description: string | null
           image: string | null
           metadata: Json | null
@@ -60,17 +91,15 @@ export type Database = {
         }
         Insert: {
           active?: boolean | null
-          category_id?: number
           description?: string | null
           image?: string | null
           metadata?: Json | null
           name?: string | null
           price?: string | null
-          product_id: number
+          product_id?: number
         }
         Update: {
           active?: boolean | null
-          category_id?: number
           description?: string | null
           image?: string | null
           metadata?: Json | null
