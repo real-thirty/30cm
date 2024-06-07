@@ -38,7 +38,7 @@ export function ProductDetailPage({ params }: props) {
           flexDirection: "row",
         }}
       >
-        <ProductDetailCarousel images={imgs?.slice(0, 3)} />
+        <ProductDetailCarousel images={imgs} />
 
         <div style={{ padding: "0 0 0 45px" }}>
           <div
