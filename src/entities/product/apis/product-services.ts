@@ -1,3 +1,4 @@
+
 import type { SupabaseClient } from "@/shared/hooks/use-supabase";
 
 export const ProductService = {
@@ -15,11 +16,11 @@ export const ProductService = {
       .select("*", {count: 'exact', head: true}) 
   },
   getProductById: async (client: SupabaseClient, id: string) => {
-    return client
+      return client
       .from("products")
-      .select("*")
+      .select(`*, images(*)`)
       .eq("product_id", id)
       .throwOnError()
-      .single();
+      .single()
   },
 };

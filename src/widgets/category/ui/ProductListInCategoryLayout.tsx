@@ -6,7 +6,7 @@ import { ProductCardInList } from "@/entities/product/ui";
 import { Tables } from "@/shared/models";
 
 interface props {
-  products?: Array<Tables<"products">>;
+  products?: Array<Tables<"products">> | null;
   totalSize?: number | null;
   onChange: Dispatch<SetStateAction<number>>;
   nowPage: number;

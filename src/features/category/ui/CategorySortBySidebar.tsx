@@ -6,7 +6,7 @@ import { Divider, Typography } from "antd";
 import { Tables } from "@/shared/models";
 
 interface props {
-  categories?: Array<Tables<"category">>;
+  categories?: Array<Tables<"category">> | null;
   largeSort: string;
   onChange: Dispatch<SetStateAction<string>>;
 }

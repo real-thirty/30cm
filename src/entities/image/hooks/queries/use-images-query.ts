@@ -11,7 +11,7 @@ export const useImagesQuery = (productId: string) => {
   const supabase = useSupabaseBrowser();
 
   return useQuery({
-    queryKey: productQueryKey.product,
+    queryKey: productQueryKey.getProductImages(productId),
     queryFn: () => ImageService.getImageByProductId(supabase, productId),
   });
 };

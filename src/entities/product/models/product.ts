@@ -1,5 +1,8 @@
 import { Stripe } from "stripe";
 
+import { ProductService } from "../apis";
+
+
 export interface Product {
   id: string;
   active?: boolean;
@@ -9,3 +12,6 @@ export interface Product {
   metadata?: Stripe.Metadata;
   price?: string;
 }
+
+
+export type ProductsWithImages = Awaited<ReturnType<typeof ProductService.getProductById>>|undefined

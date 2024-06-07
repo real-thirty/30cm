@@ -2,7 +2,6 @@ import { useMemo } from "react";
 import { SupabaseClient as SupabaseClientType } from "@supabase/supabase-js";
 
 import { supabase } from "../../app/providers/supabase/init-supabase";
-
 import { Database } from "../models";
 
 export type SupabaseClient = SupabaseClientType<Database>;

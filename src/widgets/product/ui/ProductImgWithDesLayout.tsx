@@ -5,7 +5,7 @@ interface props {
   children: ReactNode;
 }
 
-export function ProductImgWithDesLayout({ children }: props) {
+export default function ProductImgWithDesLayout({ children }: props) {
   return (
     <Layout
       style={{

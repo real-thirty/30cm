@@ -1,17 +1,10 @@
-import Image from "next/image";
-import {
-  Button,
-  Carousel,
-  ConfigProvider,
-  Layout,
-  Select,
-  Typography,
-} from "antd";
+import { Button, ConfigProvider, Layout, Select, Typography } from "antd";
 import { HeartOutlined } from "@ant-design/icons";
 
 import { useProductDetailQuery } from "@/entities/product/hooks";
 import { formatPrice } from "@/entities/product/lib";
-import { useImagesQuery } from "@/entities/image/hooks/queries";
+import { ProductsWithImages } from "@/entities/product/models";
+import ProductDetailCarousel from "@/widgets/product/ui/ProductDetailCarousel";
 
 interface props {
   params: {
@@ -23,16 +16,13 @@ const { Text, Title } = Typography;
 
 export function ProductDetailPage({ params }: props) {
   const { product_id: productId } = params;
-  const { data: productData, isSuccess } = useProductDetailQuery(productId);
-  const { data: imagesData, isSuccess: getImagesSuccess } =
-    useImagesQuery(productId);
+  const { data, isSuccess } = useProductDetailQuery(productId);
+  const productData: ProductsWithImages = data;
+  const imgs = productData?.data?.images;
 
-  if (!isSuccess || !getImagesSuccess) {
+  if (!isSuccess || !productData?.data?.images) {
     return <div>loading</div>;
   }
-
-  console.log(imagesData);
-
   return (
     <Layout
       style={{
@@ -48,29 +38,8 @@ export function ProductDetailPage({ params }: props) {
           flexDirection: "row",
         }}
       >
-        <Carousel
-          arrows
-          dots={false}
-          infinite={true}
-          style={{ width: "500px", height: "500px" }}
-        >
-          <div>
-            <Image
-              src={productData.data?.image ?? ""}
-              alt=""
-              width={500}
-              height={500}
-            />
-          </div>
-          <div>
-            <Image
-              src={productData.data?.image ?? ""}
-              alt=""
-              width={500}
-              height={500}
-            />
-          </div>
-        </Carousel>
+        <ProductDetailCarousel images={imgs?.slice(0, 3)} />
+
         <div style={{ padding: "0 0 0 45px" }}>
           <div
             style={{
@@ -146,7 +115,11 @@ export function ProductDetailPage({ params }: props) {
                   width: "100%",
                 }}
               >
-                <Select defaultValue="Size" style={{ width: "100%" }} />
+                <Select
+                  defaultValue="Size"
+                  size="large"
+                  style={{ width: "100%" }}
+                />
               </div>
             </div>
             <div
@@ -180,7 +153,6 @@ export function ProductDetailPage({ params }: props) {
           </div>
         </div>
       </div>
-      <div style={{ width: "500px" }}>123</div>
     </Layout>
   );
 }

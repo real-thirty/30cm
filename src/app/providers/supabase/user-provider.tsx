@@ -6,7 +6,7 @@ import {
   useUser as useSupabaseUser,
 } from "@supabase/auth-helpers-react";
 
-import { UserDetails } from "@/entities/product/models/product";
+import { UserDetails } from "@/entities/user/models";
 
 type UserContextType = {
   accessToken: string | null;

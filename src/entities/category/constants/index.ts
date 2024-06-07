@@ -1,1 +1,1 @@
-export * from './quertKey'
+export * from './queryKey'

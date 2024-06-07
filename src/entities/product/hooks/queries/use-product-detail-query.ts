@@ -14,3 +14,4 @@ export const useProductDetailQuery = (productId:string)=>{
     queryFn: ()=> ProductService.getProductById(supabase, productId)
   })
 }
+
