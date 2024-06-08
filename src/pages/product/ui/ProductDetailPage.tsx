@@ -1,10 +1,8 @@
-import { Button, ConfigProvider, Layout, Select, Typography } from "antd";
-import { HeartOutlined } from "@ant-design/icons";
+import { Divider, Layout, Typography } from "antd";
 
 import { useProductDetailQuery } from "@/entities/product/hooks";
-import { formatPrice } from "@/entities/product/lib";
 import { ProductsWithImages } from "@/entities/product/models";
-import ProductDetailCarousel from "@/widgets/product/ui/ProductDetailCarousel";
+import { ProductDetailCarousel, ProductDetailMain } from "@/widgets/product/ui";
 
 interface props {
   params: {
@@ -17,10 +15,10 @@ const { Text, Title } = Typography;
 export function ProductDetailPage({ params }: props) {
   const { product_id: productId } = params;
   const { data, isSuccess } = useProductDetailQuery(productId);
-  const productData: ProductsWithImages = data;
-  const imgs = productData?.data?.images;
+  const productImgData: ProductsWithImages = data;
+  const imgs = productImgData?.data?.images;
 
-  if (!isSuccess || !productData?.data?.images) {
+  if (!isSuccess || !productImgData?.data?.images) {
     return <div>loading</div>;
   }
   return (
@@ -39,8 +37,9 @@ export function ProductDetailPage({ params }: props) {
         }}
       >
         <ProductDetailCarousel images={imgs} />
+        <ProductDetailMain data={productImgData} />
 
-        <div style={{ padding: "0 0 0 45px" }}>
+        {/* <div style={{ padding: "0 0 0 45px" }}>
           <div
             style={{
               borderTop: "2px solid rgb(0, 0, 0)",
@@ -51,7 +50,7 @@ export function ProductDetailPage({ params }: props) {
             <div style={{ boxSizing: "border-box" }}>
               <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <Title level={3} style={{ padding: "24px 24px 24px 0" }}>
-                  {productData.data?.name}
+                  {productImgData.data?.name}
                 </Title>
                 <div
                   style={{
@@ -72,7 +71,7 @@ export function ProductDetailPage({ params }: props) {
                   />
                 </div>
               </div>
-              <div>{formatPrice(productData.data?.price ?? "0")}</div>
+              <div>{formatPrice(productImgData.data?.price ?? "0")}</div>
             </div>
           </div>
           <div
@@ -151,8 +150,9 @@ export function ProductDetailPage({ params }: props) {
               </Button>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
+      <Divider />
     </Layout>
   );
 }
