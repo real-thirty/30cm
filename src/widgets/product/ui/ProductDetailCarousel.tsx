@@ -5,11 +5,11 @@ import Image from "next/image";
 
 import { Tables } from "@/shared/models";
 
-interface prop {
+interface props {
   images?: Tables<"images">[];
 }
 
-export default function ProductDetailCarousel({ images }: prop) {
+export function ProductDetailCarousel({ images }: props) {
   const mainCarouRef = useRef<CarouselRef>(null);
 
   if (!images) {
@@ -64,6 +64,7 @@ export default function ProductDetailCarousel({ images }: prop) {
           display: "flex",
           flexDirection: "row",
           justifyContent: "center",
+          cursor: "pointer",
         }}
       >
         {...images.map((image, idx) => (
