@@ -10,6 +10,7 @@ interface props {
 export function IsHeart({ isHeart, onChange }: props) {
   return (
     <ConfigProvider
+      wave={{ disabled: true }}
       theme={{
         components: {
           Button: {
