@@ -1,16 +1,20 @@
-import { HeartOutlined } from "@ant-design/icons";
 import { Button, ConfigProvider, Divider, Select } from "antd";
 import Title from "antd/es/typography/Title";
+import { useState } from "react";
 
 import { formatPrice } from "@/entities/product/lib";
 import { ProductsWithImages } from "@/entities/product/models";
+import { IsHeart } from "@/shared/ui";
 
 interface props {
   data?: ProductsWithImages;
 }
 
 export function ProductDetailMain({ data }: props) {
+  const [isHeart, setIsHeart] = useState(false);
+
   const productData = data?.data;
+
   return (
     <div style={{ padding: "0 0 0 45px" }}>
       <ConfigProvider
@@ -39,23 +43,19 @@ export function ProductDetailMain({ data }: props) {
                 display: "flex",
                 flexShrink: 0,
                 justifyContent: "center",
-                alignContent: "center",
+                alignItems: "center",
                 width: "85px",
               }}
             >
-              <HeartOutlined
-                twoToneColor="pink"
-                style={{
-                  cursor: "pointer",
-                  fontSize: "26px",
-                }}
-              />
+              <IsHeart isHeart={isHeart} onChange={setIsHeart} />
             </div>
           </div>
           <div>{formatPrice(productData?.price ?? "0")}</div>
         </div>
       </div>
+
       <Divider />
+
       <div
         style={{
           padding: "20px 0",
