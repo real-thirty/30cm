@@ -44,7 +44,7 @@ export function ProductDetailCarousel({ images }: props) {
           {images?.map((image) => (
             <Image
               key={image.image_id}
-              src={image.image_url}
+              src={image.image_url ?? ""}
               width={500}
               height={500}
               alt=""
@@ -71,7 +71,7 @@ export function ProductDetailCarousel({ images }: props) {
         {...images.map((image, idx) => (
           <Image
             key={image.image_id}
-            src={image.image_url}
+            src={image.image_url ?? ""}
             width={100}
             height={100}
             alt=""
