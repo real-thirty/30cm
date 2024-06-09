@@ -7,10 +7,7 @@ import { IsHeart } from "@/shared/ui";
 import { Database } from "@/shared/models";
 
 interface props {
-  data: Omit<
-    Database["public"]["CompositeTypes"]["product_details_type"],
-    "images"
-  >;
+  data: Database["public"]["CompositeTypes"]["product_details_type"];
 }
 
 export function ProductDetailMain({ data }: props) {
