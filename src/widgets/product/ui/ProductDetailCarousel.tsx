@@ -3,10 +3,10 @@ import { useRef } from "react";
 import { CarouselRef } from "antd/es/carousel";
 import Image from "next/image";
 
-import { Tables } from "@/shared/models";
+import { Database } from "@/shared/models";
 
 interface props {
-  images?: Tables<"images">[];
+  images: Database["public"]["CompositeTypes"]["image_type"][];
 }
 
 export function ProductDetailCarousel({ images }: props) {

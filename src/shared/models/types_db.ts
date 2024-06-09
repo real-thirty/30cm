@@ -320,11 +320,11 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      get_product_details_with_colors: {
+      get_product_details: {
         Args: {
           product_id_input: number
         }
-        Returns: Json
+        Returns: Database["public"]["CompositeTypes"]["product_details_type"]
       }
     }
     Enums: {
@@ -340,7 +340,23 @@ export type Database = {
         | "unpaid"
     }
     CompositeTypes: {
-      [_ in never]: never
+      color_type: {
+        color_id: number | null
+        color_name: string | null
+      }
+      image_type: {
+        image_id: number | null
+        image_url: string | null
+        is_title: boolean | null
+      }
+      product_details_type: {
+        product_id: number | null
+        name: string | null
+        description: string | null
+        price: number | null
+        colors: Database["public"]["CompositeTypes"]["color_type"][] | null
+        images: Database["public"]["CompositeTypes"]["image_type"][] | null
+      }
     }
   }
 }

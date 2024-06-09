@@ -1,19 +1,23 @@
 import { Button, ConfigProvider, Divider, Select } from "antd";
 import Title from "antd/es/typography/Title";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 
 import { formatPrice } from "@/entities/product/lib";
-import { ProductsWithImages } from "@/entities/product/models";
 import { IsHeart } from "@/shared/ui";
+import { Database } from "@/shared/models";
 
 interface props {
-  data?: ProductsWithImages;
+  data: Omit<
+    Database["public"]["CompositeTypes"]["product_details_type"],
+    "images"
+  >;
 }
 
 export function ProductDetailMain({ data }: props) {
   const [isHeart, setIsHeart] = useState(false);
 
-  const productData = data?.data;
+  // To Do: user 로그인 기능 추가 후 heart Click handling 구현
+  const handleClickHeart = useCallback(() => {}, []);
 
   return (
     <div style={{ padding: "0 0 0 45px" }}>
@@ -35,7 +39,7 @@ export function ProductDetailMain({ data }: props) {
         <div style={{ boxSizing: "border-box" }}>
           <div style={{ display: "flex", justifyContent: "center" }}>
             <Title level={3} style={{ padding: "24px 24px 24px 0" }}>
-              {productData?.name}
+              {data?.name}
             </Title>
             <Divider type="vertical" style={{ height: "100px" }} />
             <div
@@ -50,7 +54,7 @@ export function ProductDetailMain({ data }: props) {
               <IsHeart isHeart={isHeart} onChange={setIsHeart} />
             </div>
           </div>
-          <div>{formatPrice(productData?.price ?? "0")}</div>
+          <div>{formatPrice(data?.price ?? 0)}</div>
         </div>
       </div>
 

@@ -1,7 +1,6 @@
 import { Divider, Layout, Typography } from "antd";
 
 import { useProductDetailQuery } from "@/entities/product/hooks";
-import { ProductsWithImages } from "@/entities/product/models";
 import { ProductDetailCarousel, ProductDetailMain } from "@/widgets/product/ui";
 
 interface props {
@@ -15,12 +14,11 @@ const { Text, Title } = Typography;
 export function ProductDetailPage({ params }: props) {
   const { product_id: productId } = params;
   const { data, isSuccess } = useProductDetailQuery(productId);
-  const productImgData: ProductsWithImages = data;
-  const imgs = productImgData?.data?.images;
 
-  if (!data || !productImgData?.data?.images) {
+  if (!data || !data?.images) {
     return <div>loading</div>;
   }
+  console.log(data);
   return (
     <Layout
       style={{
@@ -36,8 +34,8 @@ export function ProductDetailPage({ params }: props) {
           flexDirection: "row",
         }}
       >
-        <ProductDetailCarousel images={imgs} />
-        <ProductDetailMain data={productImgData} />
+        <ProductDetailCarousel images={data.images} />
+        <ProductDetailMain data={data} />
       </div>
       <Divider />
     </Layout>

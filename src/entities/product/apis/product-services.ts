@@ -1,6 +1,7 @@
 
 import type { SupabaseClient } from "@/shared/hooks/use-supabase";
 
+
 export const ProductService = {
   getProductList: async (client: SupabaseClient, from: number, to:number) => {
     return client
@@ -15,12 +16,10 @@ export const ProductService = {
       .from("products")
       .select("*", {count: 'exact', head: true}) 
   },
-  getProductById: async (client: SupabaseClient, id: string) => {
+  getProductById: async (client: SupabaseClient, productId: string) => {
       return client
-      .from("products")
-      .select(`*, images(*)`)
-      .eq("product_id", id)
+      .rpc('get_product_details', {product_id_input: Number(productId)})
       .throwOnError()
-      .single()
+      .then(res=>res.data)
   },
 };
