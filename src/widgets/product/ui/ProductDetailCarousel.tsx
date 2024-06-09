@@ -12,6 +12,7 @@ interface props {
 export function ProductDetailCarousel({ images }: props) {
   const mainCarouRef = useRef<CarouselRef>(null);
 
+  // To Do : skeleton component
   if (!images) {
     return <div></div>;
   }

@@ -20,7 +20,8 @@ export default function CategoryPage() {
     useCategoryListQuery();
   const { data: totalSizeData, isSuccess } = useProductListCountQuery();
 
-  if (!productListIsSuccess && !categoryIsSuccess && !isSuccess) {
+  // To Do: skeleton component
+  if (!productList || !categoryList || !totalSizeData?.count) {
     return <div>Loading</div>;
   }
 
@@ -35,6 +36,7 @@ export default function CategoryPage() {
           largeSort={largeSort}
           onChange={setLargeSort}
         />
+
         <ProductListInCategoryLayout
           products={productList}
           totalSize={totalSizeData?.count}
