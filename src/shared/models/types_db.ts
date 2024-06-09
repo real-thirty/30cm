@@ -320,7 +320,12 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      get_product_details_with_colors: {
+        Args: {
+          product_id_input: number
+        }
+        Returns: Json
+      }
     }
     Enums: {
       pricing_plan_interval: "day" | "week" | "month" | "year"
