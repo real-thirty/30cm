@@ -24,6 +24,21 @@ export type Database = {
         }
         Relationships: []
       }
+      colors: {
+        Row: {
+          color_id: number
+          color_name: string
+        }
+        Insert: {
+          color_id?: number
+          color_name: string
+        }
+        Update: {
+          color_id?: number
+          color_name?: string
+        }
+        Relationships: []
+      }
       customers: {
         Row: {
           id: string
@@ -115,6 +130,52 @@ export type Database = {
           },
         ]
       }
+      product_options: {
+        Row: {
+          color_id: number | null
+          option_id: number
+          product_id: number | null
+          size_id: number | null
+          stock_quantity: number
+        }
+        Insert: {
+          color_id?: number | null
+          option_id?: number
+          product_id?: number | null
+          size_id?: number | null
+          stock_quantity?: number
+        }
+        Update: {
+          color_id?: number | null
+          option_id?: number
+          product_id?: number | null
+          size_id?: number | null
+          stock_quantity?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "product_options_color_id_fkey"
+            columns: ["color_id"]
+            isOneToOne: false
+            referencedRelation: "colors"
+            referencedColumns: ["color_id"]
+          },
+          {
+            foreignKeyName: "product_options_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["product_id"]
+          },
+          {
+            foreignKeyName: "product_options_size_id_fkey"
+            columns: ["size_id"]
+            isOneToOne: false
+            referencedRelation: "sizes"
+            referencedColumns: ["sizd_id"]
+          },
+        ]
+      }
       products: {
         Row: {
           active: boolean | null
@@ -142,6 +203,21 @@ export type Database = {
           name?: string | null
           price?: string | null
           product_id?: number
+        }
+        Relationships: []
+      }
+      sizes: {
+        Row: {
+          sizd_id: number
+          size_name: string
+        }
+        Insert: {
+          sizd_id?: number
+          size_name?: string
+        }
+        Update: {
+          sizd_id?: number
+          size_name?: string
         }
         Relationships: []
       }
