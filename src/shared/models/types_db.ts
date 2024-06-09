@@ -51,9 +51,9 @@ export type Database = {
         Row: {
           created_at: string
           image_id: number
-          image_url: string 
-          is_title: boolean 
-          product_id: number 
+          image_url: string | null
+          is_title: boolean | null
+          product_id: number | null
         }
         Insert: {
           created_at?: string
@@ -76,6 +76,42 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "products"
             referencedColumns: ["product_id"]
+          },
+        ]
+      }
+      likes: {
+        Row: {
+          created_at: string
+          like_id: number
+          product_id: number | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          like_id?: number
+          product_id?: number | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          like_id?: number
+          product_id?: number | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "likes_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["product_id"]
+          },
+          {
+            foreignKeyName: "likes_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["user_id"]
           },
         ]
       }
@@ -176,27 +212,27 @@ export type Database = {
           avatar_url: string | null
           billing_address: Json | null
           full_name: string | null
-          id: string
           payment_method: Json | null
+          user_id: string
         }
         Insert: {
           avatar_url?: string | null
           billing_address?: Json | null
           full_name?: string | null
-          id: string
           payment_method?: Json | null
+          user_id: string
         }
         Update: {
           avatar_url?: string | null
           billing_address?: Json | null
           full_name?: string | null
-          id?: string
           payment_method?: Json | null
+          user_id?: string
         }
         Relationships: [
           {
-            foreignKeyName: "users_id_fkey"
-            columns: ["id"]
+            foreignKeyName: "users_user_id_fkey"
+            columns: ["user_id"]
             isOneToOne: true
             referencedRelation: "users"
             referencedColumns: ["id"]
