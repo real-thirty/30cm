@@ -1,4 +1,6 @@
-export type Json =
+Need to install the following packages:
+supabase@1.176.2
+Ok to proceed? (y) export type Json =
   | string
   | number
   | boolean
@@ -143,7 +145,7 @@ export type Database = {
           option_id?: number
           product_id?: number | null
           size_id?: number | null
-          stock_quantity?: number
+          stock_quantity: number
         }
         Update: {
           color_id?: number | null
@@ -172,7 +174,7 @@ export type Database = {
             columns: ["size_id"]
             isOneToOne: false
             referencedRelation: "sizes"
-            referencedColumns: ["sizd_id"]
+            referencedColumns: ["size_id"]
           },
         ]
       }
@@ -208,15 +210,15 @@ export type Database = {
       }
       sizes: {
         Row: {
-          sizd_id: number
+          size_id: number
           size_name: string
         }
         Insert: {
-          sizd_id?: number
+          size_id?: number
           size_name?: string
         }
         Update: {
-          sizd_id?: number
+          size_id?: number
           size_name?: string
         }
         Relationships: []
@@ -332,6 +334,7 @@ export type Database = {
           color_id_input: number
         }
         Returns: {
+          size_id: number
           size_name: string
           stock_quantity: number
         }[]
@@ -351,21 +354,21 @@ export type Database = {
     }
     CompositeTypes: {
       color_type: {
-        color_id: number | null
-        color_name: string | null
+        color_id: number 
+        color_name: string 
       }
       image_type: {
-        image_id: number | null
-        image_url: string | null
-        is_title: boolean | null
+        image_id: number 
+        image_url: string 
+        is_title: boolean 
       }
       product_details_type: {
-        product_id: number | null
-        name: string | null
-        description: string | null
-        price: number | null
-        colors: Database["public"]["CompositeTypes"]["color_type"][] | null
-        images: Database["public"]["CompositeTypes"]["image_type"][] | null
+        product_id: number 
+        name: string
+        description: string 
+        price: number 
+        colors: Database["public"]["CompositeTypes"]["color_type"][] 
+        images: Database["public"]["CompositeTypes"]["image_type"][] 
       }
     }
   }
