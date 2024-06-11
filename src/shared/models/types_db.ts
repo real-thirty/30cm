@@ -326,6 +326,16 @@ export type Database = {
         }
         Returns: Database["public"]["CompositeTypes"]["product_details_type"]
       }
+      get_sizes_and_stock_for_color: {
+        Args: {
+          product_id_input: number
+          color_id_input: number
+        }
+        Returns: {
+          size_name: string
+          stock_quantity: number
+        }[]
+      }
     }
     Enums: {
       pricing_plan_interval: "day" | "week" | "month" | "year"
