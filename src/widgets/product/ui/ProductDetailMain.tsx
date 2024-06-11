@@ -5,6 +5,7 @@ import { useCallback, useState } from "react";
 import { formatPrice } from "@/entities/product/lib";
 import { IsHeart } from "@/shared/ui";
 import { Database } from "@/shared/models";
+import { useProductSizeStock } from "@/entities/product/hooks";
 
 interface props {
   data: Database["public"]["CompositeTypes"]["product_details_type"];
@@ -12,6 +13,8 @@ interface props {
 
 export function ProductDetailMain({ data }: props) {
   const [isHeart, setIsHeart] = useState(false);
+  const [colorId, setColorId] = useState<number | null>(null);
+  const { data: sizeStockData } = useProductSizeStock(data.product_id, colorId);
 
   // To Do: user 로그인 기능 추가 후 heart Click handling 구현
   const handleClickHeart = useCallback(() => {}, []);
@@ -75,6 +78,7 @@ export function ProductDetailMain({ data }: props) {
             <p>나의 가격</p>
           </div>
           <div>
+            {/* To Do: 할인율 추가 후 변경 */}
             <p>10,000원</p>
           </div>
         </div>
@@ -88,19 +92,17 @@ export function ProductDetailMain({ data }: props) {
           >
             <Select
               defaultActiveFirstOption={true}
-              defaultValue="Size"
+              defaultValue="Color"
               size="large"
-              options={[
-                { value: "black", label: "Black" },
-                { value: "blue", label: "Blue" },
-                { value: "red", label: "Red" },
-                { value: "white", label: "White" },
-              ]}
+              options={data.colors?.map((color) => ({
+                value: color.color_id,
+                label: color.color_name,
+              }))}
               dropdownStyle={{
                 borderRadius: 0,
               }}
-              onChange={(value: string) => {
-                console.log(value);
+              onSelect={(value) => {
+                setColorId(Number(value));
               }}
               style={{ width: "100%" }}
             />
@@ -112,9 +114,40 @@ export function ProductDetailMain({ data }: props) {
             }}
           >
             <Select
+              disabled={!colorId ?? true}
               defaultValue="Size"
               size="large"
               style={{ width: "100%" }}
+              onSelect={(a, b) => {
+                console.log(a, b);
+              }}
+              onChange={(a, b) => {
+                console.log(a, b);
+              }}
+              options={
+                colorId
+                  ? sizeStockData?.map((data) => ({
+                      value: data.size_id,
+                      label: (
+                        <option
+                          disabled={data.stock_quantity <= 0 ? true : false}
+                          style={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                          }}
+                        >
+                          <span>
+                            {data.size_name}
+                            {data.stock_quantity <= 5
+                              ? `  재고: ${data.stock_quantity}`
+                              : ""}
+                          </span>
+                        </option>
+                      ),
+                    }))
+                  : []
+              }
             />
           </div>
         </div>
