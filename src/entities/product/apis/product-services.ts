@@ -2,6 +2,7 @@
 import type { SupabaseClient } from "@/shared/hooks/use-supabase";
 
 
+
 export const ProductService = {
   getProductList: async (client: SupabaseClient, from: number, to:number) => {
     return client
@@ -20,6 +21,17 @@ export const ProductService = {
       return client
       .rpc('get_product_details', {product_id_input: Number(productId)})
       .throwOnError()
-      .then(res=>res.data)
+      .then(response=>response.data)
   },
+  getProductSizeStock: async (client: SupabaseClient, productId: number, colorId: number|null)=>{
+    
+    if (!colorId){
+      return 
+    }
+    
+    return client
+    .rpc('get_sizes_and_stock_for_color', {product_id_input: productId, color_id_input: colorId})
+    .throwOnError()
+    .then(response=>response.data)
+  }
 };
