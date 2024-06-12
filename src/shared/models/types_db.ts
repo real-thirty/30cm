@@ -1,6 +1,4 @@
-Need to install the following packages:
-supabase@1.176.2
-Ok to proceed? (y) export type Json =
+export type Json =
   | string
   | number
   | boolean
@@ -358,16 +356,16 @@ export type Database = {
         color_name: string 
       }
       image_type: {
-        image_id: number 
+        image_id: number
         image_url: string 
-        is_title: boolean 
+        is_title: boolean
       }
       product_details_type: {
         product_id: number 
-        name: string
+        name: string 
         description: string 
-        price: number 
-        colors: Database["public"]["CompositeTypes"]["color_type"][] 
+        price: number
+        colors: Database["public"]["CompositeTypes"]["color_type"][]
         images: Database["public"]["CompositeTypes"]["image_type"][] 
       }
     }

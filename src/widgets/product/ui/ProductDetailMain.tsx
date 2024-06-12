@@ -1,6 +1,14 @@
-import { Button, ConfigProvider, Divider, Select } from "antd";
-import Title from "antd/es/typography/Title";
+import {
+  Button,
+  ConfigProvider,
+  Divider,
+  InputNumber,
+  Select,
+  Table,
+  Typography,
+} from "antd";
 import { useCallback, useState } from "react";
+import { CloseCircleOutlined } from "@ant-design/icons";
 
 import { formatPrice } from "@/entities/product/lib";
 import { IsHeart } from "@/shared/ui";
@@ -11,14 +19,52 @@ interface props {
   data: Database["public"]["CompositeTypes"]["product_details_type"];
 }
 
+export interface SelectedProduct {
+  key: number;
+  productId: number;
+  colorId: number;
+  colorName: string;
+  sizeId: number;
+  sizeName: string;
+  price: number;
+  stock: number;
+  quantity: number;
+}
+
+interface ColorSizeState {
+  colorId: number;
+  colorName: string;
+  sizeId: number;
+  sizeName: string;
+  stock: number;
+}
+
+const { Text, Title } = Typography;
+
+const IniColorSizeState = {
+  colorId: 0,
+  colorName: "",
+  sizeId: 0,
+  sizeName: "",
+  stock: 0,
+};
+
 export function ProductDetailMain({ data }: props) {
   const [isHeart, setIsHeart] = useState(false);
-  const [colorId, setColorId] = useState<number | null>(null);
-  const { data: sizeStockData } = useProductSizeStock(data.product_id, colorId);
+  const [colorSize, setColorSize] = useState<ColorSizeState>(IniColorSizeState);
+  const [selectedProducts, setSelectedProducts] = useState<SelectedProduct[]>(
+    []
+  );
+
+  const { data: sizeStockData } = useProductSizeStock(
+    data.product_id,
+    colorSize.colorId
+  );
 
   // To Do: user 로그인 기능 추가 후 heart Click handling 구현
   const handleClickHeart = useCallback(() => {}, []);
 
+  console.log(selectedProducts);
   return (
     <div style={{ padding: "0 0 0 45px" }}>
       <ConfigProvider
@@ -36,26 +82,24 @@ export function ProductDetailMain({ data }: props) {
           paddingBottom: "16px",
         }}
       >
-        <div style={{ boxSizing: "border-box" }}>
-          <div style={{ display: "flex", justifyContent: "center" }}>
-            <Title level={3} style={{ padding: "24px 24px 24px 0" }}>
-              {data?.name}
-            </Title>
-            <Divider type="vertical" style={{ height: "100px" }} />
-            <div
-              style={{
-                display: "flex",
-                flexShrink: 0,
-                justifyContent: "center",
-                alignItems: "center",
-                width: "85px",
-              }}
-            >
-              <IsHeart isHeart={isHeart} onChange={setIsHeart} />
-            </div>
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <Title level={3} style={{ padding: "24px 24px 24px 0" }}>
+            {data.name}
+          </Title>
+          <Divider type="vertical" style={{ height: "100px" }} />
+          <div
+            style={{
+              display: "flex",
+              flexShrink: 0,
+              justifyContent: "center",
+              alignItems: "center",
+              width: "85px",
+            }}
+          >
+            <IsHeart isHeart={isHeart} onChange={setIsHeart} />
           </div>
-          <div>{formatPrice(data?.price ?? 0)}</div>
         </div>
+        <div>{formatPrice(data.price)}</div>
       </div>
 
       <Divider />
@@ -92,7 +136,7 @@ export function ProductDetailMain({ data }: props) {
           >
             <Select
               defaultActiveFirstOption={true}
-              defaultValue="Color"
+              value={!colorSize.colorId ? "Color" : colorSize.colorName}
               size="large"
               options={data.colors?.map((color) => ({
                 value: color.color_id,
@@ -101,8 +145,12 @@ export function ProductDetailMain({ data }: props) {
               dropdownStyle={{
                 borderRadius: 0,
               }}
-              onSelect={(value) => {
-                setColorId(Number(value));
+              onSelect={(value, label) => {
+                setColorSize((prev) => ({
+                  ...prev,
+                  colorId: Number(value),
+                  colorName: label.label,
+                }));
               }}
               style={{ width: "100%" }}
             />
@@ -114,23 +162,41 @@ export function ProductDetailMain({ data }: props) {
             }}
           >
             <Select
-              disabled={!colorId ?? true}
-              defaultValue="Size"
+              disabled={!colorSize.colorId ?? true}
+              value={!colorSize.sizeId ? "Size" : colorSize.sizeName}
               size="large"
               style={{ width: "100%" }}
-              onSelect={(a, b) => {
-                console.log(a, b);
-              }}
-              onChange={(a, b) => {
-                console.log(a, b);
+              onSelect={(sizeId) => {
+                // 이미 selectedProducts에 추가 된 조건인지 확인 이미 추가되었으면 alert 띄우기
+                setSelectedProducts((prev) => {
+                  const sizeStock = sizeStockData?.find(
+                    (data) => data.size_id === Number(sizeId)
+                  );
+                  return [
+                    ...prev,
+                    {
+                      key: prev.length,
+                      productId: data.product_id,
+                      colorId: colorSize.colorId,
+                      colorName: colorSize.colorName,
+                      sizeId: sizeStock!.size_id,
+                      sizeName: sizeStock!.size_name,
+                      price: data.price,
+                      stock: sizeStock!.stock_quantity,
+                      quantity: 1,
+                    },
+                  ];
+                });
+                setColorSize(IniColorSizeState);
               }}
               options={
-                colorId
+                colorSize
                   ? sizeStockData?.map((data) => ({
                       value: data.size_id,
                       label: (
                         <option
                           disabled={data.stock_quantity <= 0 ? true : false}
+                          value={data.stock_quantity}
                           style={{
                             display: "flex",
                             justifyContent: "space-between",
@@ -139,7 +205,9 @@ export function ProductDetailMain({ data }: props) {
                         >
                           <span>
                             {data.size_name}
-                            {data.stock_quantity <= 5
+                            {data.stock_quantity <= 0
+                              ? `  [품절]`
+                              : data.stock_quantity <= 5
                               ? `  재고: ${data.stock_quantity}`
                               : ""}
                           </span>
@@ -151,6 +219,91 @@ export function ProductDetailMain({ data }: props) {
             />
           </div>
         </div>
+        <Divider style={{ marginBottom: 3 }} />
+
+        {selectedProducts.length > 0 && (
+          <ConfigProvider
+            theme={{
+              token: { padding: 10 },
+              components: {
+                InputNumber: {
+                  controlWidth: 70,
+                  activeBorderColor: "black",
+                  hoverBorderColor: "black",
+                  handleHoverColor: "black",
+                  paddingBlock: 4,
+                  handleVisible: true,
+                  activeShadow: "transparent",
+                  borderRadius: 3,
+                },
+              },
+            }}
+          >
+            <Table
+              showHeader={false}
+              rowHoverable={false}
+              columns={[
+                {
+                  title: "name",
+                  key: "name",
+                  dataIndex: "name",
+                  align: "left",
+                  width: 150,
+                  render: (value) => <Text strong>{value}</Text>,
+                },
+                {
+                  title: "quantity",
+                  key: "quantity",
+                  dataIndex: "quantity",
+                  align: "center",
+                  render: (_, record) => (
+                    <InputNumber
+                      onChange={(value) => {
+                        setSelectedProducts((prev) => {
+                          return prev.map((arr) =>
+                            arr.key === record.key
+                              ? { ...arr, quantity: Number(value) }
+                              : arr
+                          );
+                        });
+                      }}
+                      min={1}
+                      max={record.stock}
+                      defaultValue={1}
+                    />
+                  ),
+                },
+                {
+                  title: "price",
+                  key: "price",
+                  align: "center",
+                  dataIndex: "price",
+                },
+                {
+                  title: "delete",
+                  key: "delete",
+                  align: "center",
+                  render: (_, record, idx) => (
+                    <CloseCircleOutlined
+                      onClick={() =>
+                        setSelectedProducts((prev) => [
+                          ...prev.slice(0, idx),
+                          ...prev.slice(idx + 1, prev.length),
+                        ])
+                      }
+                      style={{ cursor: "pointer" }}
+                    />
+                  ),
+                },
+              ]}
+              dataSource={selectedProducts.map((product) => ({
+                ...product,
+                name: `${product.colorName} & ${product.sizeName}`,
+                price: `${formatPrice(product.price)}원`,
+              }))}
+            />
+          </ConfigProvider>
+        )}
         <div
           style={{
             display: "flex",
@@ -183,3 +336,6 @@ export function ProductDetailMain({ data }: props) {
     </div>
   );
 }
+
+// 1. supabase null 안넘어오게 하기
+// 2. ant Table이용해서 select 아래부분 구현
