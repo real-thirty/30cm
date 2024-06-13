@@ -316,8 +316,8 @@ export function ProductDetailMain({ data }: props) {
           </ConfigProvider>
         )}
         <div style={{ borderTop: "2px solid black", textAlign: "end" }}>
-          <Title level={2} style={{ margin: "2px 5px" }}>
-            123
+          <Title level={2} style={{ margin: "5px 0" }}>
+            {formatPrice(sumSelectedProducts(selectedProducts))}원
           </Title>
         </div>
         <div
@@ -353,15 +353,22 @@ export function ProductDetailMain({ data }: props) {
   );
 }
 
-function checkSameProductInSelected(
+const checkSameProductInSelected = (
   products: SelectedProduct[],
   colorId: number,
   sizedId: number
-) {
+) => {
   for (var product of products) {
     if (colorId === product.colorId && sizedId === product.sizeId) {
       return true;
     }
   }
   return false;
-}
+};
+
+const sumSelectedProducts = (products: SelectedProduct[]) => {
+  return products.reduce(
+    (ini, product) => ini + product.quantity * product.price,
+    0
+  );
+};
