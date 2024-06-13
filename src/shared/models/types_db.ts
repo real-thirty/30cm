@@ -1,3 +1,7 @@
+import {MergeDeep} from 'type-fest'
+
+import { nonNullDatabaseExcept } from '.'
+
 export type Json =
   | string
   | number
@@ -6,7 +10,9 @@ export type Json =
   | { [key: string]: Json | undefined }
   | Json[]
 
-export type Database = {
+export type Database = MergeDeep<oldDatabase, nonNullDatabaseExcept>
+
+export type oldDatabase = {
   public: {
     Tables: {
       category: {
@@ -352,21 +358,21 @@ export type Database = {
     }
     CompositeTypes: {
       color_type: {
-        color_id: number 
-        color_name: string 
+        color_id: number | null
+        color_name: string | null
       }
       image_type: {
-        image_id: number
-        image_url: string 
-        is_title: boolean
+        image_id: number | null
+        image_url: string | null
+        is_title: boolean | null
       }
       product_details_type: {
-        product_id: number 
-        name: string 
-        description: string 
-        price: number
-        colors: Database["public"]["CompositeTypes"]["color_type"][]
-        images: Database["public"]["CompositeTypes"]["image_type"][] 
+        product_id: number | null
+        name: string | null
+        description: string | null
+        price: number | null
+        colors: Database["public"]["CompositeTypes"]["color_type"][] | null
+        images: Database["public"]["CompositeTypes"]["image_type"][] | null
       }
     }
   }
