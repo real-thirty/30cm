@@ -1,7 +1,11 @@
 import { Divider, Layout, Typography } from "antd";
 
 import { useProductDetailQuery } from "@/entities/product/hooks";
-import { ProductDetailCarousel, ProductDetailMain } from "@/widgets/product/ui";
+import {
+  ProductDescription,
+  ProductDetailCarousel,
+  ProductDetailMain,
+} from "@/widgets/product/ui";
 
 interface props {
   params: {
@@ -38,6 +42,7 @@ export function ProductDetailPage({ params }: props) {
         <ProductDetailMain data={data} />
       </div>
       <Divider />
+      <ProductDescription data={data} />
     </Layout>
   );
 }
