@@ -2,12 +2,12 @@ import { Dispatch, SetStateAction } from "react";
 import { Layout, Pagination, Row } from "antd";
 import Content from "antd/es/layout";
 
-import { Database } from "@/shared/models";
-import { ProductCardInList } from "@/entities/product";
+import { ProductCardInList } from "@/entities/product/ui";
+import { Tables } from "@/shared/models";
 
 interface props {
-  products?: Database["public"]["Tables"]["products"]["Row"][] | null;
-  totalSize?: number | null;
+  products?: Array<Tables<"products">>;
+  totalSize?: number;
   onChange: Dispatch<SetStateAction<number>>;
   nowPage: number;
 }

@@ -24,6 +24,21 @@ export type Database = {
         }
         Relationships: []
       }
+      colors: {
+        Row: {
+          color_id: number
+          color_name: string
+        }
+        Insert: {
+          color_id?: number
+          color_name: string
+        }
+        Update: {
+          color_id?: number
+          color_name?: string
+        }
+        Relationships: []
+      }
       customers: {
         Row: {
           id: string
@@ -47,10 +62,123 @@ export type Database = {
           },
         ]
       }
+      images: {
+        Row: {
+          created_at: string
+          image_id: number
+          image_url: string | null
+          is_title: boolean | null
+          product_id: number | null
+        }
+        Insert: {
+          created_at?: string
+          image_id?: number
+          image_url?: string | null
+          is_title?: boolean | null
+          product_id?: number | null
+        }
+        Update: {
+          created_at?: string
+          image_id?: number
+          image_url?: string | null
+          is_title?: boolean | null
+          product_id?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "images_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["product_id"]
+          },
+        ]
+      }
+      likes: {
+        Row: {
+          created_at: string
+          like_id: number
+          product_id: number | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          like_id?: number
+          product_id?: number | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          like_id?: number
+          product_id?: number | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "likes_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["product_id"]
+          },
+          {
+            foreignKeyName: "likes_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["user_id"]
+          },
+        ]
+      }
+      product_options: {
+        Row: {
+          color_id: number | null
+          option_id: number
+          product_id: number | null
+          size_id: number | null
+          stock_quantity: number
+        }
+        Insert: {
+          color_id?: number | null
+          option_id?: number
+          product_id?: number | null
+          size_id?: number | null
+          stock_quantity: number
+        }
+        Update: {
+          color_id?: number | null
+          option_id?: number
+          product_id?: number | null
+          size_id?: number | null
+          stock_quantity?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "product_options_color_id_fkey"
+            columns: ["color_id"]
+            isOneToOne: false
+            referencedRelation: "colors"
+            referencedColumns: ["color_id"]
+          },
+          {
+            foreignKeyName: "product_options_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["product_id"]
+          },
+          {
+            foreignKeyName: "product_options_size_id_fkey"
+            columns: ["size_id"]
+            isOneToOne: false
+            referencedRelation: "sizes"
+            referencedColumns: ["size_id"]
+          },
+        ]
+      }
       products: {
         Row: {
           active: boolean | null
-          category_id: number
           description: string | null
           image: string | null
           metadata: Json | null
@@ -60,23 +188,36 @@ export type Database = {
         }
         Insert: {
           active?: boolean | null
-          category_id?: number
-          description?: string | null
-          image?: string | null
-          metadata?: Json | null
-          name?: string | null
-          price?: string | null
-          product_id: number
-        }
-        Update: {
-          active?: boolean | null
-          category_id?: number
           description?: string | null
           image?: string | null
           metadata?: Json | null
           name?: string | null
           price?: string | null
           product_id?: number
+        }
+        Update: {
+          active?: boolean | null
+          description?: string | null
+          image?: string | null
+          metadata?: Json | null
+          name?: string | null
+          price?: string | null
+          product_id?: number
+        }
+        Relationships: []
+      }
+      sizes: {
+        Row: {
+          size_id: number
+          size_name: string
+        }
+        Insert: {
+          size_id?: number
+          size_name?: string
+        }
+        Update: {
+          size_id?: number
+          size_name?: string
         }
         Relationships: []
       }
@@ -147,27 +288,27 @@ export type Database = {
           avatar_url: string | null
           billing_address: Json | null
           full_name: string | null
-          id: string
           payment_method: Json | null
+          user_id: string
         }
         Insert: {
           avatar_url?: string | null
           billing_address?: Json | null
           full_name?: string | null
-          id: string
           payment_method?: Json | null
+          user_id: string
         }
         Update: {
           avatar_url?: string | null
           billing_address?: Json | null
           full_name?: string | null
-          id?: string
           payment_method?: Json | null
+          user_id?: string
         }
         Relationships: [
           {
-            foreignKeyName: "users_id_fkey"
-            columns: ["id"]
+            foreignKeyName: "users_user_id_fkey"
+            columns: ["user_id"]
             isOneToOne: true
             referencedRelation: "users"
             referencedColumns: ["id"]
@@ -179,7 +320,23 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      get_product_details: {
+        Args: {
+          product_id_input: number
+        }
+        Returns: Database["public"]["CompositeTypes"]["product_details_type"]
+      }
+      get_sizes_and_stock_for_color: {
+        Args: {
+          product_id_input: number
+          color_id_input: number
+        }
+        Returns: {
+          size_id: number
+          size_name: string
+          stock_quantity: number
+        }[]
+      }
     }
     Enums: {
       pricing_plan_interval: "day" | "week" | "month" | "year"
@@ -194,7 +351,23 @@ export type Database = {
         | "unpaid"
     }
     CompositeTypes: {
-      [_ in never]: never
+      color_type: {
+        color_id: number 
+        color_name: string 
+      }
+      image_type: {
+        image_id: number
+        image_url: string 
+        is_title: boolean
+      }
+      product_details_type: {
+        product_id: number 
+        name: string 
+        description: string 
+        price: number
+        colors: Database["public"]["CompositeTypes"]["color_type"][]
+        images: Database["public"]["CompositeTypes"]["image_type"][] 
+      }
     }
   }
 }

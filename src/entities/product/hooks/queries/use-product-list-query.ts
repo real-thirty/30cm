@@ -4,12 +4,15 @@ import useSupabaseBrowser from "@/shared/hooks/use-supabase";
 
 import { productQueryKey } from "../../constants";
 import { ProductService } from "../../apis";
+import { getRangeIdxFromPage } from "../../lib";
 
-export const useProductListQuery = (from:number, to:number) => {
+
+export const useProductListQuery = (nowPage: number) => {
   const supabase = useSupabaseBrowser();
+  const [from, to] = getRangeIdxFromPage(nowPage)
 
   return useQuery({
-    queryKey: [productQueryKey.product, from , to],
+    queryKey:  productQueryKey.getProductList(from, to),
     queryFn: () => ProductService.getProductList(supabase, from, to),
   });
 };

@@ -2,12 +2,12 @@ import { Col } from "antd";
 import Image from "next/image";
 import Link from "next/link";
 
-import { Database } from "@/shared/models";
+import { Tables } from "@/shared/models";
 
-import { formatPrice } from "..";
+import { formatPrice } from "../lib";
 
 interface props {
-  product: Database["public"]["Tables"]["products"]["Row"];
+  product: Tables<"products">;
 }
 export function ProductCardInList({ product }: props) {
   return (

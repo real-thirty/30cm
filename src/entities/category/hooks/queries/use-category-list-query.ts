@@ -13,6 +13,6 @@ export const useCategoryListQuery = () => {
 
   return useQuery({
     queryKey: categoryQueryKey.category,
-    queryFn: () => CategoryService.getCategoryList(supabase ),
+    queryFn: () => CategoryService.getCategoryList(supabase),
   });
 };

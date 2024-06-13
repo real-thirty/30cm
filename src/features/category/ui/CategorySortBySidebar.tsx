@@ -1,14 +1,19 @@
-import { Divider } from "antd";
-import Sider from "antd/es/layout/Sider";
+import { Dispatch, SetStateAction } from "react";
 import Link from "next/link";
+import Sider from "antd/es/layout/Sider";
+import { Divider, Typography } from "antd";
 
-import { Database } from "@/shared/models";
+import { Tables } from "@/shared/models";
 
 interface props {
-  categories: Database["public"]["Tables"]["category"]["Row"][];
+  categories?: Array<Tables<"category">>;
+  largeSort: string;
+  onChange: Dispatch<SetStateAction<string>>;
 }
 
-export function CategorySidebar({ categories }: props) {
+const { Title } = Typography;
+
+export function CategorySortBySidebar({ categories, onChange }: props) {
   return (
     <Sider
       theme="light"
@@ -31,7 +36,7 @@ export function CategorySidebar({ categories }: props) {
           key={category.category_id}
         >
           <Link href={`/`} style={{ color: "black" }}>
-            <span style={{ fontSize: "16px" }}>{category.name}</span>
+            <Title level={5}>{category.name}</Title>
           </Link>
         </div>
       ))}

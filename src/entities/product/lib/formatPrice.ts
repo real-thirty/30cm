@@ -1,3 +1,3 @@
-export function formatPrice(price: string, withSign = true) {
-  return Number(price).toLocaleString()
+export function formatPrice(price: number, withSign = true) {
+  return price.toLocaleString()
 }
