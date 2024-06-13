@@ -50,6 +50,7 @@ const IniColorSizeState = {
 };
 
 export function ProductDetailMain({ data }: props) {
+  // To Do: User 로그인 추가 후 Heart state 수정
   const [isHeart, setIsHeart] = useState(false);
   const [colorSize, setColorSize] = useState<ColorSizeState>(IniColorSizeState);
   const [selectedProducts, setSelectedProducts] = useState<SelectedProduct[]>(
@@ -167,26 +168,35 @@ export function ProductDetailMain({ data }: props) {
               size="large"
               style={{ width: "100%" }}
               onSelect={(sizeId) => {
-                // 이미 selectedProducts에 추가 된 조건인지 확인 이미 추가되었으면 alert 띄우기
-                setSelectedProducts((prev) => {
-                  const sizeStock = sizeStockData?.find(
-                    (data) => data.size_id === Number(sizeId)
-                  );
-                  return [
-                    ...prev,
-                    {
-                      key: prev.length,
-                      productId: data.product_id,
-                      colorId: colorSize.colorId,
-                      colorName: colorSize.colorName,
-                      sizeId: sizeStock!.size_id,
-                      sizeName: sizeStock!.size_name,
-                      price: data.price,
-                      stock: sizeStock!.stock_quantity,
-                      quantity: 1,
-                    },
-                  ];
-                });
+                if (
+                  checkSameProductInSelected(
+                    selectedProducts,
+                    colorSize.colorId,
+                    Number(sizeId)
+                  )
+                ) {
+                  alert("1");
+                } else {
+                  setSelectedProducts((prev) => {
+                    const sizeStock = sizeStockData?.find(
+                      (data) => data.size_id === Number(sizeId)
+                    );
+                    return [
+                      ...prev,
+                      {
+                        key: prev.length,
+                        productId: data.product_id,
+                        colorId: colorSize.colorId,
+                        colorName: colorSize.colorName,
+                        sizeId: sizeStock!.size_id,
+                        sizeName: sizeStock!.size_name,
+                        price: data.price,
+                        stock: sizeStock!.stock_quantity,
+                        quantity: 1,
+                      },
+                    ];
+                  });
+                }
                 setColorSize(IniColorSizeState);
               }}
               options={
@@ -301,9 +311,15 @@ export function ProductDetailMain({ data }: props) {
                 name: `${product.colorName} & ${product.sizeName}`,
                 price: `${formatPrice(product.price)}원`,
               }))}
+              pagination={false}
             />
           </ConfigProvider>
         )}
+        <div style={{ borderTop: "2px solid black", textAlign: "end" }}>
+          <Title level={2} style={{ margin: "2px 5px" }}>
+            123
+          </Title>
+        </div>
         <div
           style={{
             display: "flex",
@@ -337,5 +353,15 @@ export function ProductDetailMain({ data }: props) {
   );
 }
 
-// 1. supabase null 안넘어오게 하기
-// 2. ant Table이용해서 select 아래부분 구현
+function checkSameProductInSelected(
+  products: SelectedProduct[],
+  colorId: number,
+  sizedId: number
+) {
+  for (var product of products) {
+    if (colorId === product.colorId && sizedId === product.sizeId) {
+      return true;
+    }
+  }
+  return false;
+}
