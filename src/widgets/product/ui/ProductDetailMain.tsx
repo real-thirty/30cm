@@ -15,20 +15,11 @@ import { IsHeart } from "@/shared/ui";
 import { Database } from "@/shared/models";
 import { useProductSizeStock } from "@/entities/product/hooks";
 
+import { checkSameProductInSelected, sumSelectedProducts } from "../lib";
+import { SelectedProduct } from "../model";
+
 interface props {
   data: Database["public"]["CompositeTypes"]["product_details_type"];
-}
-
-export interface SelectedProduct {
-  key: number;
-  productId: number;
-  colorId: number;
-  colorName: string;
-  sizeId: number;
-  sizeName: string;
-  price: number;
-  stock: number;
-  quantity: number;
 }
 
 interface ColorSizeState {
@@ -65,7 +56,6 @@ export function ProductDetailMain({ data }: props) {
   // To Do: user 로그인 기능 추가 후 heart Click handling 구현
   const handleClickHeart = useCallback(() => {}, []);
 
-  console.log(selectedProducts);
   return (
     <div style={{ padding: "0 0 0 45px" }}>
       <ConfigProvider
@@ -352,23 +342,3 @@ export function ProductDetailMain({ data }: props) {
     </div>
   );
 }
-
-const checkSameProductInSelected = (
-  products: SelectedProduct[],
-  colorId: number,
-  sizedId: number
-) => {
-  for (var product of products) {
-    if (colorId === product.colorId && sizedId === product.sizeId) {
-      return true;
-    }
-  }
-  return false;
-};
-
-const sumSelectedProducts = (products: SelectedProduct[]) => {
-  return products.reduce(
-    (ini, product) => ini + product.quantity * product.price,
-    0
-  );
-};

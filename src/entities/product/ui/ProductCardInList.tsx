@@ -37,7 +37,7 @@ export function ProductCardInList({ product }: props) {
         />
         <h1 style={{ margin: "0px" }}>{product.name}</h1>
         <span>{product.description}</span>
-        <p>{formatPrice(product.price ?? "0")}</p>
+        <p>{formatPrice(Number(product.price) ?? 0)}</p>
       </Link>
     </Col>
   );

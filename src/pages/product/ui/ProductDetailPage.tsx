@@ -17,7 +17,7 @@ export function ProductDetailPage({ params }: props) {
   const { product_id: productId } = params;
   const { data } = useProductDetailQuery(productId);
 
-  if (!data || !data?.images) {
+  if (!data) {
     return <div>loading</div>;
   }
 

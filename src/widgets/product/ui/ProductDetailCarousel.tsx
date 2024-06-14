@@ -14,7 +14,7 @@ export function ProductDetailCarousel({ images }: props) {
 
   // To Do : skeleton component
   if (!images) {
-    return <div></div>;
+    return null;
   }
 
   return (
