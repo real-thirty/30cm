@@ -2,7 +2,7 @@
 
 
 export interface SelectedProduct {
-  key: number;
+  optionId: number;
   productId: number;
   colorId: number;
   colorName: string;
