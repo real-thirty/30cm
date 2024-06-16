@@ -18,10 +18,13 @@ export const ProductService = {
       .select("*", {count: 'exact', head: true}) 
   },
   getProductById: async (client: SupabaseClient, productId: string) => {
-      return client
-      .rpc('get_product_details', {product_id_input: Number(productId)})
-      .throwOnError()
-      .then(response=>response.data)
+    const {data} = await client.rpc('get_product_details', {product_id_input: Number(productId)}).throwOnError()
+    
+    if(!data){
+      throw new Error('NOT FOUND get_product_details')
+    }
+
+    return data
   },
   getProductSizeStock: async (client: SupabaseClient, productId: number, colorId: number|null)=>{
     
