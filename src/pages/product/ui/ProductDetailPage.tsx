@@ -17,10 +17,6 @@ export function ProductDetailPage({ params }: props) {
   const { product_id: productId } = params;
   const { data } = useProductDetailQuery(productId);
 
-  if (!data) {
-    return <div>loading</div>;
-  }
-
   return (
     <Layout
       style={{
@@ -37,6 +33,7 @@ export function ProductDetailPage({ params }: props) {
         }}
       >
         <ProductDetailCarousel images={data.images} />
+
         <ProductDetailMain data={data} />
       </div>
       <Divider />
