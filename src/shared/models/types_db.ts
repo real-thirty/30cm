@@ -1,6 +1,6 @@
-import {MergeDeep} from 'type-fest'
+import {MergeDeep} from "type-fest"
 
-import { nonNullDatabaseExcept } from '.'
+import { nonNullDatabaseExcept } from "."
 
 export type Json =
   | string
@@ -10,8 +10,8 @@ export type Json =
   | { [key: string]: Json | undefined }
   | Json[]
 
-export type Database = MergeDeep<oldDatabase, nonNullDatabaseExcept>
 
+export type Database = MergeDeep<oldDatabase, nonNullDatabaseExcept>
 export type oldDatabase = {
   public: {
     Tables: {
@@ -70,25 +70,22 @@ export type oldDatabase = {
       }
       images: {
         Row: {
-          created_at: string
           image_id: number
-          image_url: string | null
-          is_title: boolean | null
-          product_id: number | null
+          image_url: string
+          is_title: boolean
+          product_id: number
         }
         Insert: {
-          created_at?: string
           image_id?: number
-          image_url?: string | null
-          is_title?: boolean | null
-          product_id?: number | null
+          image_url?: string
+          is_title?: boolean
+          product_id: number
         }
         Update: {
-          created_at?: string
           image_id?: number
-          image_url?: string | null
-          is_title?: boolean | null
-          product_id?: number | null
+          image_url?: string
+          is_title?: boolean
+          product_id?: number
         }
         Relationships: [
           {
@@ -184,30 +181,24 @@ export type oldDatabase = {
       }
       products: {
         Row: {
-          active: boolean | null
-          description: string | null
-          image: string | null
-          metadata: Json | null
-          name: string | null
-          price: string | null
+          description: string
+          image: string
+          name: string
+          price: string
           product_id: number
         }
         Insert: {
-          active?: boolean | null
-          description?: string | null
-          image?: string | null
-          metadata?: Json | null
-          name?: string | null
-          price?: string | null
+          description?: string
+          image: string
+          name: string
+          price?: string
           product_id?: number
         }
         Update: {
-          active?: boolean | null
-          description?: string | null
-          image?: string | null
-          metadata?: Json | null
-          name?: string | null
-          price?: string | null
+          description?: string
+          image?: string
+          name?: string
+          price?: string
           product_id?: number
         }
         Relationships: []
@@ -357,22 +348,24 @@ export type oldDatabase = {
         | "unpaid"
     }
     CompositeTypes: {
-      color_type: {
+      options: {
+        option_id: number | null
+        product_id: number | null
         color_id: number | null
         color_name: string | null
-      }
-      image_type: {
-        image_id: number | null
-        image_url: string | null
-        is_title: boolean | null
+        size_id: number | null
+        size_name: string | null
+        stock_quantity: number | null
       }
       product_details_type: {
         product_id: number | null
         name: string | null
         description: string | null
         price: number | null
-        colors: Database["public"]["CompositeTypes"]["color_type"][] | null
-        images: Database["public"]["CompositeTypes"]["image_type"][] | null
+        colors: Database["public"]["Tables"]["colors"]["Row"][] | null
+        images: Database["public"]["Tables"]["images"]["Row"][] | null
+        options: Database["public"]["CompositeTypes"]["options"][] | null
+        sizes: Database["public"]["Tables"]["sizes"]["Row"][] | null
       }
     }
   }
