@@ -3,7 +3,6 @@ import {
   ConfigProvider,
   Divider,
   InputNumber,
-  Select,
   Table,
   Typography,
 } from "antd";
@@ -13,51 +12,34 @@ import { CloseCircleOutlined } from "@ant-design/icons";
 import { formatPrice } from "@/entities/product/lib";
 import { IsHeart } from "@/shared/ui";
 import { Database } from "@/shared/models";
-import { useProductSizeStock } from "@/entities/product/hooks";
+import { ProductColorSizeSelects } from "@/entities/product/ui";
 
-import { checkSameProductInSelected, sumSelectedProducts } from "../lib";
+import { sumSelectedProducts } from "../lib";
 import { SelectedProduct } from "../model";
+
+import { ProductDetailMainLayout } from ".";
 
 interface props {
   data: Database["public"]["CompositeTypes"]["product_details_type"];
 }
 
-interface ColorSizeState {
-  colorId: number;
-  colorName: string;
-  sizeId: number;
-  sizeName: string;
-  stock: number;
-}
-
 const { Text, Title } = Typography;
-
-const IniColorSizeState = {
-  colorId: 0,
-  colorName: "",
-  sizeId: 0,
-  sizeName: "",
-  stock: 0,
-};
 
 export function ProductDetailMain({ data }: props) {
   // To Do: User 로그인 추가 후 Heart state 수정
   const [isHeart, setIsHeart] = useState(false);
-  const [colorSize, setColorSize] = useState<ColorSizeState>(IniColorSizeState);
+
   const [selectedProducts, setSelectedProducts] = useState<SelectedProduct[]>(
     []
   );
 
-  const { data: sizeStockData } = useProductSizeStock(
-    data.product_id,
-    colorSize.colorId
-  );
+  console.log(data);
 
   // To Do: user 로그인 기능 추가 후 heart Click handling 구현
   const handleClickHeart = useCallback(() => {}, []);
 
   return (
-    <div style={{ padding: "0 0 0 45px" }}>
+    <ProductDetailMainLayout>
       <ConfigProvider
         theme={{
           token: {
@@ -117,110 +99,15 @@ export function ProductDetailMain({ data }: props) {
             <p>10,000원</p>
           </div>
         </div>
-        <div style={{ lineHeight: "0" }}>
-          <div
-            style={{
-              position: "relative",
-              width: "100%",
-              marginBottom: "4px",
-            }}
-          >
-            <Select
-              defaultActiveFirstOption={true}
-              value={!colorSize.colorId ? "Color" : colorSize.colorName}
-              size="large"
-              options={data.colors?.map((color) => ({
-                value: color.color_id,
-                label: color.color_name,
-              }))}
-              dropdownStyle={{
-                borderRadius: 0,
-              }}
-              onSelect={(value, label) => {
-                setColorSize((prev) => ({
-                  ...prev,
-                  colorId: Number(value),
-                  colorName: label.label,
-                }));
-              }}
-              style={{ width: "100%" }}
-            />
-          </div>
-          <div
-            style={{
-              position: "relative",
-              width: "100%",
-            }}
-          >
-            <Select
-              disabled={!colorSize.colorId ?? true}
-              value={!colorSize.sizeId ? "Size" : colorSize.sizeName}
-              size="large"
-              style={{ width: "100%" }}
-              onSelect={(sizeId) => {
-                if (
-                  checkSameProductInSelected(
-                    selectedProducts,
-                    colorSize.colorId,
-                    Number(sizeId)
-                  )
-                ) {
-                  alert("1");
-                } else {
-                  setSelectedProducts((prev) => {
-                    const sizeStock = sizeStockData?.find(
-                      (data) => data.size_id === Number(sizeId)
-                    );
-                    return [
-                      ...prev,
-                      {
-                        key: prev.length,
-                        productId: data.product_id,
-                        colorId: colorSize.colorId,
-                        colorName: colorSize.colorName,
-                        sizeId: sizeStock!.size_id,
-                        sizeName: sizeStock!.size_name,
-                        price: data.price,
-                        stock: sizeStock!.stock_quantity,
-                        quantity: 1,
-                      },
-                    ];
-                  });
-                }
-                setColorSize(IniColorSizeState);
-              }}
-              options={
-                colorSize
-                  ? sizeStockData?.map((data) => ({
-                      value: data.size_id,
-                      label: (
-                        <option
-                          disabled={data.stock_quantity <= 0 ? true : false}
-                          value={data.stock_quantity}
-                          style={{
-                            display: "flex",
-                            justifyContent: "space-between",
-                            alignItems: "center",
-                          }}
-                        >
-                          <span>
-                            {data.size_name}
-                            {data.stock_quantity <= 0
-                              ? `  [품절]`
-                              : data.stock_quantity <= 5
-                              ? `  재고: ${data.stock_quantity}`
-                              : ""}
-                          </span>
-                        </option>
-                      ),
-                    }))
-                  : []
-              }
-            />
-          </div>
+        <div>
+          <ProductColorSizeSelects
+            data={data}
+            selectedProducts={selectedProducts}
+            onSelect={setSelectedProducts}
+          />
         </div>
         <Divider style={{ marginBottom: 3 }} />
-
+        {/* // SelectedProductsTable */}
         {selectedProducts.length > 0 && (
           <ConfigProvider
             theme={{
@@ -305,11 +192,13 @@ export function ProductDetailMain({ data }: props) {
             />
           </ConfigProvider>
         )}
+        {/* // TotalPrice */}
         <div style={{ borderTop: "2px solid black", textAlign: "end" }}>
           <Title level={2} style={{ margin: "5px 0" }}>
             {formatPrice(sumSelectedProducts(selectedProducts))}원
           </Title>
         </div>
+        {/* // BagBuyWidget */}
         <div
           style={{
             display: "flex",
@@ -339,6 +228,6 @@ export function ProductDetailMain({ data }: props) {
           </Button>
         </div>
       </div>
-    </div>
+    </ProductDetailMainLayout>
   );
 }
