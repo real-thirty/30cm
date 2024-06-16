@@ -4,7 +4,7 @@ import { SelectedProduct } from "../model";
 
 
 
-export const checkSameProductInSelected = (
+export const isSameProductInSelected = (
   products: SelectedProduct[],
   colorId: number,
   sizedId: number

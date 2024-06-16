@@ -1,2 +1,2 @@
-export * from './checkSameProductInSelected';
+export * from './isSameProductInSelected';
 export * from './sumSelectedProducts';
