@@ -8,7 +8,7 @@ interface props extends DividerProps {
 export function CustomDivider({ token, components, ...props }: props) {
   return (
     <ConfigProvider theme={{ token: token, components: components }}>
-      <Divider style={{ margin: 0 }} {...props} />
+      <Divider {...props} />
     </ConfigProvider>
   );
 }

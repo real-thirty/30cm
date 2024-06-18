@@ -4,7 +4,10 @@ import { Database } from "@/shared/models";
 import { SelectedProduct } from "@/widgets/product/model";
 import { isSameProductInSelected } from "@/widgets/product/lib";
 
-import { ProdcutDetailSizeStockSelect, ProductDetailColorSelect } from ".";
+import {
+  ProdcutDetailSizeStockSelect,
+  ProductDetailColorSelect,
+} from "../../../entities/product/ui";
 
 interface props {
   data: Database["public"]["CompositeTypes"]["product_details_type"];
