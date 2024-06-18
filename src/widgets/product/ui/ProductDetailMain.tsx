@@ -3,6 +3,7 @@ import {
   ConfigProvider,
   Divider,
   InputNumber,
+  Space,
   Table,
   Typography,
 } from "antd";
@@ -10,7 +11,7 @@ import { useCallback, useState } from "react";
 import { CloseCircleOutlined } from "@ant-design/icons";
 
 import { formatPrice } from "@/entities/product/lib";
-import { IsHeart } from "@/shared/ui";
+import { CustomDivider, IsHeart } from "@/shared/ui";
 import { Database } from "@/shared/models";
 import { ProductColorSizeSelects } from "@/entities/product/ui";
 
@@ -40,40 +41,24 @@ export function ProductDetailMain({ data }: props) {
 
   return (
     <ProductDetailMainLayout>
-      <ConfigProvider
-        theme={{
-          token: {
-            lineWidth: 2,
-            colorSplit: "black",
-          },
-        }}
-      >
-        <Divider style={{ margin: 0 }} />
-      </ConfigProvider>
-      <div
-        style={{
-          paddingBottom: "16px",
-        }}
-      >
-        <div style={{ display: "flex", justifyContent: "center" }}>
-          <Title level={3} style={{ padding: "24px 24px 24px 0" }}>
-            {data.name}
-          </Title>
-          <Divider type="vertical" style={{ height: "100px" }} />
-          <div
-            style={{
-              display: "flex",
-              flexShrink: 0,
-              justifyContent: "center",
-              alignItems: "center",
-              width: "85px",
-            }}
-          >
-            <IsHeart isHeart={isHeart} onChange={setIsHeart} />
-          </div>
+      <CustomDivider token={{ lineWidth: 2, colorSplit: "black" }} />
+      <Space>
+        <Title level={3} style={{ padding: "24px 24px 24px 0" }}>
+          {data.name}
+        </Title>
+        <Divider type="vertical" style={{ height: "100px" }} />
+        <div
+          style={{
+            display: "flex",
+            flexShrink: 0,
+            justifyContent: "center",
+            alignItems: "center",
+            width: "85px",
+          }}
+        >
+          <IsHeart isHeart={isHeart} onChange={setIsHeart} />
         </div>
-        <div>{formatPrice(data.price)}</div>
-      </div>
+      </Space>
 
       <Divider />
 
