@@ -8,6 +8,7 @@ export function ProductDetailMainLayout({ children }: { children: ReactNode }) {
         width: "100%",
         margin: "0 auto",
         height: "auto",
+        maxWidth: "650px",
       }}
     >
       {children}
