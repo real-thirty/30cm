@@ -1,11 +1,8 @@
 import { Divider, Layout } from "antd";
 
 import { useProductDetailQuery } from "@/entities/product/hooks";
-import {
-  ProductDescription,
-  ProductDetailCarousel,
-  ProductDetailMain,
-} from "@/widgets/product/ui";
+import { ProductDetailCarousel, ProductDetailMain } from "@/widgets/product/ui";
+import { ProductDescription } from "@/entities/product/ui";
 
 interface props {
   params: {

@@ -14,6 +14,7 @@ import {
   ProductDiscountPrice,
   SelectedProductsTable,
 } from ".";
+import { ProductDetailCartBuyLayout } from "./ProductDetailCartBuyLayout";
 
 interface props {
   data: Database["public"]["CompositeTypes"]["product_details_type"];
@@ -60,12 +61,7 @@ export function ProductDetailMain({ data }: props) {
       <ProductDetailTotalPrice selectedProducts={selectedProducts} />
 
       {/* // BagBuyWidget */}
-      <div
-        style={{
-          display: "flex",
-          paddingTop: "16px",
-        }}
-      >
+      <ProductDetailCartBuyLayout>
         <ConfigProvider
           theme={{
             components: {
@@ -87,7 +83,7 @@ export function ProductDetailMain({ data }: props) {
         >
           구매하기
         </Button>
-      </div>
+      </ProductDetailCartBuyLayout>
     </ProductDetailMainLayout>
   );
 }
