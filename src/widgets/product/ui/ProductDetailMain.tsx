@@ -14,6 +14,8 @@ import {
   ProductDiscountPrice,
   SelectedProductsTable,
 } from ".";
+import { ProductDetailCartBuyLayout } from "./ProductDetailCartBuyLayout";
+import { AddToCartButton, BuyButton } from "@/features/product/ui";
 
 interface props {
   data: Database["public"]["CompositeTypes"]["product_details_type"];
@@ -25,8 +27,6 @@ export function ProductDetailMain({ data }: props) {
   const [selectedProducts, setSelectedProducts] = useState<SelectedProduct[]>(
     []
   );
-
-  console.log(data);
 
   return (
     <ProductDetailMainLayout>
@@ -59,35 +59,10 @@ export function ProductDetailMain({ data }: props) {
       )}
       <ProductDetailTotalPrice selectedProducts={selectedProducts} />
 
-      {/* // BagBuyWidget */}
-      <div
-        style={{
-          display: "flex",
-          paddingTop: "16px",
-        }}
-      >
-        <ConfigProvider
-          theme={{
-            components: {
-              Button: {
-                colorPrimary: "green",
-                colorPrimaryHover: "black",
-                colorPrimaryActive: "yellow",
-              },
-            },
-          }}
-        >
-          <Button size="large" style={{ width: "100%", borderRadius: 0 }}>
-            장바구니
-          </Button>
-        </ConfigProvider>
-        <Button
-          size="large"
-          style={{ width: "100%", borderRadius: 0, marginLeft: "5px" }}
-        >
-          구매하기
-        </Button>
-      </div>
+      <ProductDetailCartBuyLayout>
+        <AddToCartButton products={selectedProducts} />
+        <BuyButton products={selectedProducts} />
+      </ProductDetailCartBuyLayout>
     </ProductDetailMainLayout>
   );
 }

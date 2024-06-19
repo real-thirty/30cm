@@ -2,8 +2,7 @@ import { Select } from "antd";
 import { Dispatch, SetStateAction } from "react";
 
 import { Tables } from "@/shared/models";
-
-import { NowOption } from ".";
+import { NowOption } from "@/widgets/product/ui";
 
 interface props {
   colors: Tables<"colors">[];
