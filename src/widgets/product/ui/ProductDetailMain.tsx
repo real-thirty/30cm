@@ -15,6 +15,7 @@ import {
   SelectedProductsTable,
 } from ".";
 import { ProductDetailCartBuyLayout } from "./ProductDetailCartBuyLayout";
+import { AddToCartButton } from "@/features/product/ui";
 
 interface props {
   data: Database["public"]["CompositeTypes"]["product_details_type"];
@@ -62,21 +63,7 @@ export function ProductDetailMain({ data }: props) {
 
       {/* // BagBuyWidget */}
       <ProductDetailCartBuyLayout>
-        <ConfigProvider
-          theme={{
-            components: {
-              Button: {
-                colorPrimary: "green",
-                colorPrimaryHover: "black",
-                colorPrimaryActive: "yellow",
-              },
-            },
-          }}
-        >
-          <Button size="large" style={{ width: "100%", borderRadius: 0 }}>
-            장바구니
-          </Button>
-        </ConfigProvider>
+        <AddToCartButton products={selectedProducts} />
         <Button
           size="large"
           style={{ width: "100%", borderRadius: 0, marginLeft: "5px" }}
