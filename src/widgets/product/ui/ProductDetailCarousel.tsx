@@ -3,19 +3,14 @@ import { useRef } from "react";
 import { CarouselRef } from "antd/es/carousel";
 import Image from "next/image";
 
-import { Database } from "@/shared/models";
+import { Tables } from "@/shared/models";
 
 interface props {
-  images: Database["public"]["CompositeTypes"]["image_type"][];
+  images: Tables<"images">[];
 }
 
 export function ProductDetailCarousel({ images }: props) {
   const mainCarouRef = useRef<CarouselRef>(null);
-
-  // To Do : skeleton component
-  if (!images) {
-    return <div></div>;
-  }
 
   return (
     <Space

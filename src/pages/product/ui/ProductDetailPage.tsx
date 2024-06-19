@@ -1,4 +1,4 @@
-import { Divider, Layout, Typography } from "antd";
+import { Divider, Layout } from "antd";
 
 import { useProductDetailQuery } from "@/entities/product/hooks";
 import {
@@ -13,16 +13,10 @@ interface props {
   };
 }
 
-const { Text, Title } = Typography;
-
 export function ProductDetailPage({ params }: props) {
   const { product_id: productId } = params;
-  const { data, isSuccess } = useProductDetailQuery(productId);
+  const { data } = useProductDetailQuery(productId);
 
-  if (!data || !data?.images) {
-    return <div>loading</div>;
-  }
-  console.log(data);
   return (
     <Layout
       style={{
@@ -39,6 +33,7 @@ export function ProductDetailPage({ params }: props) {
         }}
       >
         <ProductDetailCarousel images={data.images} />
+
         <ProductDetailMain data={data} />
       </div>
       <Divider />

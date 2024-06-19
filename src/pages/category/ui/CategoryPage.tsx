@@ -7,8 +7,8 @@ import {
   useProductListQuery,
 } from "@/entities/product/hooks/queries";
 import { useCategoryListQuery } from "@/entities/category/hooks/queries";
+import { CategorySortBySidebar } from "@/features/category/ui";
 import { ProductListInCategoryLayout } from "@/widgets/category";
-import { CategorySortBySidebar } from "@/features/category";
 
 export default function CategoryPage() {
   const [nowPage, setNowPage] = useState(1);

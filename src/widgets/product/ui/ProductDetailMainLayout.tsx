@@ -1,20 +1,17 @@
-import { Layout } from "antd";
 import { ReactNode } from "react";
 
-interface props {
-  children: ReactNode;
-}
-
-export function ProductDetailMainLayout({ children }: props) {
+export function ProductDetailMainLayout({ children }: { children: ReactNode }) {
   return (
-    <Layout
+    <div
       style={{
-        margin: "100px 0 0",
-        padding: "40px 50px 0",
-        backgroundColor: "white",
+        padding: "0 0 0 45px",
+        width: "100%",
+        margin: "0 auto",
+        height: "auto",
+        maxWidth: "650px",
       }}
     >
       {children}
-    </Layout>
+    </div>
   );
 }
