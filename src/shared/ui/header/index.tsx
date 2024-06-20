@@ -44,7 +44,7 @@ export const Header = () => {
   return (
     <AntdHeader
       style={{
-        position: "sticky",
+        position: "fixed",
         top: 0,
         zIndex: 1,
         width: "100%",
