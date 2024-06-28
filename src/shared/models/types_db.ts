@@ -32,16 +32,16 @@ export type oldDatabase = {
       }
       colors: {
         Row: {
-          color_id: number
-          color_name: string
+          id: number
+          name: string
         }
         Insert: {
-          color_id?: number
-          color_name: string
+          id?: number
+          name: string
         }
         Update: {
-          color_id?: number
-          color_name?: string
+          id?: number
+          name?: string
         }
         Relationships: []
       }
@@ -161,7 +161,7 @@ export type oldDatabase = {
             columns: ["color_id"]
             isOneToOne: false
             referencedRelation: "colors"
-            referencedColumns: ["color_id"]
+            referencedColumns: ["id"]
           },
           {
             foreignKeyName: "product_options_product_id_fkey"
@@ -175,7 +175,7 @@ export type oldDatabase = {
             columns: ["size_id"]
             isOneToOne: false
             referencedRelation: "sizes"
-            referencedColumns: ["size_id"]
+            referencedColumns: ["id"]
           },
         ]
       }
@@ -205,16 +205,16 @@ export type oldDatabase = {
       }
       sizes: {
         Row: {
-          size_id: number
-          size_name: string
+          id: number
+          name: string
         }
         Insert: {
-          size_id?: number
-          size_name?: string
+          id?: number
+          name?: string
         }
         Update: {
-          size_id?: number
-          size_name?: string
+          id?: number
+          name?: string
         }
         Relationships: []
       }
@@ -348,6 +348,15 @@ export type oldDatabase = {
         | "unpaid"
     }
     CompositeTypes: {
+      combined_selects: {
+        color_id: number | null
+        color_name: string | null
+        size_id: number | null
+        size_name: string | null
+        option_id: number | null
+        product_id: number | null
+        stock_quantity: number | null
+      }
       options: {
         option_id: number | null
         product_id: number | null

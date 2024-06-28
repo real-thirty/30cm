@@ -28,6 +28,25 @@ export function ProductDetailMain({ data }: props) {
     []
   );
 
+  const handleConfirmSelect = (
+    option: Database["public"]["CompositeTypes"]["options"]
+  ) => {
+    setSelectedProducts((prev) => [
+      ...prev,
+      {
+        optionId: option.option_id,
+        colorId: option.color_id,
+        colorName: option.color_name,
+        sizeId: option.size_id,
+        sizeName: option.size_name,
+        stock: option.stock_quantity,
+        price: data.price,
+        productId: option.product_id,
+        quantity: 1,
+      },
+    ]);
+  };
+
   return (
     <ProductDetailMainLayout>
       <CustomDivider
@@ -45,9 +64,9 @@ export function ProductDetailMain({ data }: props) {
 
       <ProductDiscountPrice price={data.price} />
       <ProductColorSizeSelects
-        data={data}
+        data={{ colors: data.colors, sizes: data.sizes, options: data.options }}
         selectedProducts={selectedProducts}
-        onSelect={setSelectedProducts}
+        onConfirmSelect={handleConfirmSelect}
       />
       <Divider style={{ marginBottom: 3 }} />
 
