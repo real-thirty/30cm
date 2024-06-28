@@ -1,3 +1,4 @@
+import { Database } from "@/shared/models";
 import { SelectedProduct } from "../model";
 
 
@@ -6,11 +7,10 @@ import { SelectedProduct } from "../model";
 
 export const isSameProductInSelected = (
   products: SelectedProduct[],
-  colorId: number,
-  sizedId: number
+  option: Database["public"]["CompositeTypes"]["options"]
 ) => {
   for (var product of products) {
-    if (colorId === product.colorId && sizedId === product.sizeId) {
+    if (option.color_id === product.colorId && option.size_id === product.sizeId) {
       return true;
     }
   }
