@@ -12,7 +12,16 @@ export default function PublicLayout({
   return (
     <>
       <ConfigProvider
-        theme={{ components: { Layout: { colorBgLayout: "white" } } }}
+        theme={{
+          components: {
+            Layout: { colorBgLayout: "white" },
+            Input: {
+              hoverBorderColor: "black",
+              activeBorderColor: "black",
+              activeShadow: "black",
+            },
+          },
+        }}
       >
         <Header />
         {children}
