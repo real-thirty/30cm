@@ -5,10 +5,8 @@ import { selectType } from "@/widgets/product/ui";
 
 interface props {
   nowState: selectType;
-  idx: number;
   selects: { id: number; name: string }[];
   onSelect: (
-    selectIdx: number,
     value: string,
     label: {
       value: number;
@@ -17,12 +15,7 @@ interface props {
   ) => void;
 }
 
-export function ProductDetailSelect({
-  nowState,
-  idx,
-  selects,
-  onSelect,
-}: props) {
+export function ProductDetailSelect({ nowState, selects, onSelect }: props) {
   const selectOptions = selects.map((select) => ({
     value: select.id,
     label: select.name,
@@ -37,7 +30,7 @@ export function ProductDetailSelect({
         borderRadius: 0,
       }}
       options={selectOptions}
-      onSelect={(value, label) => onSelect(idx, value, label)}
+      onSelect={(value, label) => onSelect(value, label)}
       style={{ position: "relative", width: "100%", marginBottom: "4px" }}
     />
   );
