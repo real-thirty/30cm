@@ -47,6 +47,8 @@ export function ProductDetailMain({ data }: props) {
     ]);
   };
 
+  const hasProductInState = selectedProducts.length > 0;
+
   return (
     <ProductDetailMainLayout>
       <CustomDivider
@@ -70,7 +72,7 @@ export function ProductDetailMain({ data }: props) {
       />
       <Divider style={{ marginBottom: 3 }} />
 
-      {selectedProducts.length > 0 && (
+      {hasProductInState && (
         <SelectedProductsTable
           selectedProducts={selectedProducts}
           onChange={setSelectedProducts}

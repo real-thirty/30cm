@@ -53,9 +53,11 @@ ProductDetailLastSelect.Option = ({
 }: {
   option: Database["public"]["CompositeTypes"]["options"];
 }) => {
+  const isEnoughStock = (quantity: number) => quantity >= 5;
+  const isSoldOut = (quantity: number) => quantity <= 0;
   return (
     <option
-      disabled={option.stock_quantity <= 0 ? true : false}
+      disabled={isSoldOut(option.stock_quantity) ? true : false}
       value={option.option_id}
       style={{
         display: "flex",
@@ -65,11 +67,11 @@ ProductDetailLastSelect.Option = ({
     >
       <span>
         {option.size_name}
-        {option.stock_quantity <= 0
+        {isSoldOut(option.stock_quantity)
           ? `  [품절]`
-          : option.stock_quantity <= 5
-          ? `  재고: ${option.stock_quantity}`
-          : ""}
+          : isEnoughStock(option.stock_quantity)
+          ? ""
+          : `  재고: ${option.stock_quantity}`}
       </span>
     </option>
   );
