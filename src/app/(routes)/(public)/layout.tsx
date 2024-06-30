@@ -1,6 +1,7 @@
 "use client";
 
 import { Header } from "@/shared/ui";
+import { ConfigProvider } from "antd";
 import React from "react";
 
 export default function PublicLayout({
@@ -10,8 +11,12 @@ export default function PublicLayout({
 }) {
   return (
     <>
-      <Header />
-      {children}
+      <ConfigProvider
+        theme={{ components: { Layout: { colorBgLayout: "white" } } }}
+      >
+        <Header />
+        {children}
+      </ConfigProvider>
     </>
   );
 }

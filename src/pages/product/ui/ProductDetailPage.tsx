@@ -19,12 +19,10 @@ export function ProductDetailPage({ params }: props) {
       style={{
         margin: "100px 0 0",
         padding: "40px 50px 0",
-        backgroundColor: "white",
       }}
     >
       <div
         style={{
-          backgroundColor: "white",
           display: "flex",
           flexDirection: "row",
         }}

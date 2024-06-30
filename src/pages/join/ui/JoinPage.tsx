@@ -1,17 +1,9 @@
+import { Layout } from "antd";
+
 export const JoinPage = () => {
   return (
-    <div>
+    <Layout>
       <div>123</div>
-      <div>123</div>
-      <div>123</div>
-      <div>123</div>
-      <div>123</div>
-      <div>123</div>
-      <div>123</div>
-      <div>123</div>
-      <div>123</div>
-      <div>123</div>
-      <div>123</div>
-    </div>
+    </Layout>
   );
 };
