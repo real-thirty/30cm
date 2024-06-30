@@ -20,6 +20,12 @@ export default function PublicLayout({
               activeBorderColor: "black",
               activeShadow: "black",
             },
+            Button: {
+              defaultActiveColor: "black",
+              defaultActiveBorderColor: "black",
+              defaultHoverBorderColor: "black",
+              defaultHoverColor: "black",
+            },
           },
         }}
       >
