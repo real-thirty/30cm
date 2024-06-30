@@ -56,18 +56,16 @@ export function ProductColorSizeSelects({
   );
 
   const handleSelects = useCallback(
-    (
-      selectIdx: number,
-      value: string,
-      label: { value: number; label: string }
-    ) => {
-      setSelectsState((prevSelects) =>
-        prevSelects.map((select, idx) =>
-          idx === selectIdx
-            ? { ...select, id: Number(value), name: label.label }
-            : select
-        )
-      );
+    (selectIdx: number) => {
+      return (value: string, label: { value: number; label: string }) => {
+        setSelectsState((prevSelects) =>
+          prevSelects.map((select, idx) =>
+            idx === selectIdx
+              ? { ...select, id: Number(value), name: label.label }
+              : select
+          )
+        );
+      };
     },
     [setSelectsState]
   );
@@ -89,9 +87,8 @@ export function ProductColorSizeSelects({
         return (
           <ProductDetailSelect
             nowState={select}
-            idx={idx}
             selects={data[select.type]}
-            onSelect={handleSelects}
+            onSelect={handleSelects(idx)}
           />
         );
       })}
