@@ -1,4 +1,10 @@
-import { JoinIdWidget, JoinPwWidget } from "@/widgets/join/ui";
+import {
+  JoinAddressWidget,
+  JoinIdWidget,
+  JoinNameWidget,
+  JoinPhoneNumWidget,
+  JoinPwWidget,
+} from "@/widgets/join/ui";
 import { Button, Input, Layout, Progress } from "antd";
 import Title from "antd/es/typography/Title";
 
@@ -20,8 +26,11 @@ export const JoinPage = () => {
         strokeLinecap="butt"
         style={{ paddingBottom: 10 }}
       />
-      {/* <JoinIdWidget /> */}
+      <JoinIdWidget />
       <JoinPwWidget />
+      <JoinNameWidget />
+      <JoinPhoneNumWidget />
+      <JoinAddressWidget />
     </Layout>
   );
 };
