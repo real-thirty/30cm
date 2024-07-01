@@ -6,15 +6,20 @@ import {
   JoinPhoneNumWidget,
   JoinPwWidget,
 } from "@/widgets/join/ui";
-import { Form, Layout, Progress } from "antd";
+import { Form } from "antd";
 import Title from "antd/es/typography/Title";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { JoinPageLayout } from "../layout";
+import { ProgressBar } from "@/shared/ui/footer/ProgressBar";
 
 export const JoinPage = () => {
   const [step, setStep] = useState<JoinStepId>(1);
   const {} = useForm();
+
+  const transPercentByStep = (step: JoinStepId): number =>
+    step * (100 / Object.keys(JoinStepKey).length);
+
   return (
     <JoinPageLayout>
       <Title
@@ -23,14 +28,7 @@ export const JoinPage = () => {
       >
         회원가입
       </Title>
-      <Progress
-        // step에 따라 percent 변경
-        percent={10}
-        strokeColor="black"
-        showInfo={false}
-        strokeLinecap="butt"
-        style={{ paddingBottom: 10 }}
-      />
+      <ProgressBar percent={transPercentByStep(step)} />
       <Form>
         <JoinIdWidget name={JoinStepKey[step]} />
         <JoinPwWidget name={JoinStepKey[step]} />
