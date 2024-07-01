@@ -10,14 +10,13 @@ import { Form, Layout, Progress } from "antd";
 import Title from "antd/es/typography/Title";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { JoinPageLayout } from "../layout";
 
 export const JoinPage = () => {
   const [step, setStep] = useState<JoinStepId>(1);
   const {} = useForm();
   return (
-    <Layout
-      style={{ maxWidth: "450px", margin: "0 auto", padding: "50px 0 200px" }}
-    >
+    <JoinPageLayout>
       <Title
         style={{ textAlign: "center", fontWeight: 600, marginBottom: "40px" }}
         level={1}
@@ -39,6 +38,6 @@ export const JoinPage = () => {
         <JoinPhoneNumWidget name={JoinStepKey[step]} />
         <JoinAddressWidget name={JoinStepKey[step]} />
       </Form>
-    </Layout>
+    </JoinPageLayout>
   );
 };
