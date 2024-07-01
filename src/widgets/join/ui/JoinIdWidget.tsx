@@ -1,7 +1,7 @@
 import { Button, Input } from "antd";
 import Title from "antd/es/typography/Title";
 
-export const JoinInputWidget = () => {
+export const JoinIdWidget = () => {
   return (
     <div>
       <Title level={4} style={{ marginBottom: "50px" }}>

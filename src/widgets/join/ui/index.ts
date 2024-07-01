@@ -1,1 +1,2 @@
-export * from "./JoinInputWidget";
+export * from "./JoinIdWidget";
+export * from "./JoinPwWidget";
