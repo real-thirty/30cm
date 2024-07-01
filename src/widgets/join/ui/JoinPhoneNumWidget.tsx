@@ -1,7 +1,15 @@
 import { Button, Input } from "antd";
 import Title from "antd/es/typography/Title";
+import { JoinStepType } from "../consts";
 
-export const JoinPhoneNumWidget = () => {
+interface props {
+  name: JoinStepType;
+}
+
+export const JoinPhoneNumWidget = ({ name }: props) => {
+  if (name !== JoinStepType["PHONENUMBER"]) {
+    return null;
+  }
   return (
     <div>
       <Title level={4} style={{ marginBottom: "50px" }}>
