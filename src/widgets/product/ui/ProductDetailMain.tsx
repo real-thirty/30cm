@@ -73,6 +73,7 @@ export function ProductDetailMain({ data }: props) {
       <Divider style={{ marginBottom: 3 }} />
 
       {hasProductInState && (
+        //
         <SelectedProductsTable
           selectedProducts={selectedProducts}
           onChange={setSelectedProducts}
