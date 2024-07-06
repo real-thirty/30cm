@@ -1,1 +1,1 @@
-export * from './JoinPage'
+export * from './joinPage'

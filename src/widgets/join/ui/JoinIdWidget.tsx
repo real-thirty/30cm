@@ -1,8 +1,9 @@
 import { Button, Form, Input } from "antd";
 import Title from "antd/es/typography/Title";
-import { JoinStepType } from "../consts";
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { RuleObject } from "antd/es/form";
+
+import { JoinStepType } from "../consts";
 
 interface props {
   name: JoinStepType;
@@ -10,22 +11,19 @@ interface props {
 }
 
 export const JoinIdWidget = ({ name, onNext }: props) => {
+  const [canNext, setCanNext] = useState(false);
   if (name !== JoinStepType["ID"]) {
     return null;
   }
-  const [canNext, setCanNext] = useState(false);
 
-  const emailValidate = useCallback(
-    (_: RuleObject, value: string): Promise<void> => {
-      if (new RegExp(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/).test(value)) {
-        setCanNext(true);
-        return Promise.resolve();
-      }
-      setCanNext(false);
-      return Promise.reject(new Error("이메일 양식으로 작성해주세요."));
-    },
-    [setCanNext]
-  );
+  const emailValidate = (_: RuleObject, value: string): Promise<void> => {
+    if (new RegExp(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/).test(value)) {
+      setCanNext(true);
+      return Promise.resolve();
+    }
+    setCanNext(false);
+    return Promise.reject(new Error("이메일 양식으로 작성해주세요."));
+  };
 
   return (
     <>
@@ -34,8 +32,8 @@ export const JoinIdWidget = ({ name, onNext }: props) => {
       </Title>
       <div style={{ marginBottom: "40px" }}>
         <Form.Item
-          name="id"
-          validateDebounce={500}
+          name="ID"
+          validateDebounce={300}
           rules={[
             {
               validator: emailValidate,

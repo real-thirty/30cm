@@ -3,7 +3,6 @@ import React, { useCallback, useState } from "react";
 import { Database } from "@/shared/models";
 import { SelectedProduct } from "@/widgets/product/model";
 import { isSameProductInSelected } from "@/widgets/product/lib";
-
 import {
   ProductDetailLastSelect,
   ProductDetailSelect,

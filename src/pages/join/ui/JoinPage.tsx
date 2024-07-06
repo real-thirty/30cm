@@ -1,4 +1,9 @@
-import { JoinStepId, JoinStepKey } from "@/widgets/join/consts";
+import { Form } from "antd";
+import Title from "antd/es/typography/Title";
+import { useCallback, useState } from "react";
+import { useForm } from "antd/es/form/Form";
+
+import { ProgressBar } from "@/shared/ui/footer/progressBar";
 import {
   JoinAddressWidget,
   JoinIdWidget,
@@ -6,12 +11,9 @@ import {
   JoinPhoneNumWidget,
   JoinPwWidget,
 } from "@/widgets/join/ui";
-import { Form } from "antd";
-import Title from "antd/es/typography/Title";
-import { useCallback, useState } from "react";
+import { JoinStepId, JoinStepKey } from "@/widgets/join/consts";
+
 import { JoinPageLayout } from "../layout";
-import { ProgressBar } from "@/shared/ui/footer/ProgressBar";
-import { useForm } from "antd/es/form/Form";
 
 export const JoinPage = () => {
   const [step, setStep] = useState<JoinStepId>(1);
@@ -38,7 +40,7 @@ export const JoinPage = () => {
       <ProgressBar percent={transPercentByStep(step)} />
       <Form form={form}>
         <JoinIdWidget name={JoinStepKey[step]} onNext={nextStepHandler} />
-        <JoinPwWidget name={JoinStepKey[step]} />
+        <JoinPwWidget name={JoinStepKey[step]} onNext={nextStepHandler} />
         <JoinNameWidget name={JoinStepKey[step]} />
         <JoinPhoneNumWidget name={JoinStepKey[step]} />
         <JoinAddressWidget name={JoinStepKey[step]} />

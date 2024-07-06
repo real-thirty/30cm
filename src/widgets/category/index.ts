@@ -1,1 +1,1 @@
-export {ProductListInCategoryLayout} from './ui/ProductListInCategoryLayout'
+export {ProductListInCategoryLayout} from './ui/productListInCategoryLayout'

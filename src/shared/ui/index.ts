@@ -1,4 +1,4 @@
 export * from "./footer";
 export * from "./header";
-export * from "./IsHeart";
-export * from "./CustomDivider"
+export * from "./isHeart";
+export * from "./customDivider"

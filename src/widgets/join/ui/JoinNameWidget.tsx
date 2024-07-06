@@ -1,5 +1,6 @@
 import { Button, Input } from "antd";
 import Title from "antd/es/typography/Title";
+
 import { JoinStepType } from "../consts";
 
 interface props {

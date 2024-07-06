@@ -1,1 +1,1 @@
-export * from "./JoinPageLayout";
+export * from "./joinPageLayout";

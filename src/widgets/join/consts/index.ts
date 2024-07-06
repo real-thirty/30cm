@@ -1,1 +1,1 @@
-export * from "./JoinStepKey";
+export * from "./joinStepKey";

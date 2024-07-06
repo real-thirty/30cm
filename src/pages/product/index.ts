@@ -1,1 +1,1 @@
-export {ProductDetailPage} from './ui/ProductDetailPage'
+export {ProductDetailPage} from './ui/productDetailPage'

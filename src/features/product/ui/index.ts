@@ -1,2 +1,2 @@
-export * from "./AddToCartButton";
-export * from "./BuyButton";
+export * from "./addToCartButton";
+export * from "./buyButton";
