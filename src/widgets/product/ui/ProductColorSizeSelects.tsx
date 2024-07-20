@@ -1,9 +1,8 @@
-import { useCallback, useState } from "react";
+import React, { useCallback, useState } from "react";
 
 import { Database } from "@/shared/models";
 import { SelectedProduct } from "@/widgets/product/model";
 import { isSameProductInSelected } from "@/widgets/product/lib";
-
 import {
   ProductDetailLastSelect,
   ProductDetailSelect,
@@ -72,26 +71,28 @@ export function ProductColorSizeSelects({
 
   return (
     <>
-      {selectsState.map((select, idx) => {
-        if (idx === selectsState.length - 1) {
+      {React.Children.toArray(
+        selectsState.map((select, idx) => {
+          if (idx === selectsState.length - 1) {
+            return (
+              <ProductDetailLastSelect
+                nowState={select}
+                totalState={selectsState}
+                stocks={data.options}
+                onSelect={handleLastSelect}
+              />
+            );
+          }
+
           return (
-            <ProductDetailLastSelect
+            <ProductDetailSelect
               nowState={select}
-              totalState={selectsState}
-              stocks={data.options}
-              onSelect={handleLastSelect}
+              selects={data[select.type]}
+              onSelect={handleSelects(idx)}
             />
           );
-        }
-
-        return (
-          <ProductDetailSelect
-            nowState={select}
-            selects={data[select.type]}
-            onSelect={handleSelects(idx)}
-          />
-        );
-      })}
+        })
+      )}
     </>
   );
 }

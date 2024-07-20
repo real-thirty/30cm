@@ -10,7 +10,6 @@
     "update-types": "npx supabase gen types typescript --project-id vmqbxyjbseyzzunklpmm > src/shared/models/types_db.ts"
   },
   "dependencies": {
-    "@ant-design/cssinjs": "^1.20.0",
     "@ant-design/icons": "^5.3.7",
     "@ant-design/nextjs-registry": "^1.0.0",
     "@supabase/auth-helpers-nextjs": "^0.10.0",
@@ -30,6 +29,7 @@
     "zustand": "^4.5.2"
   },
   "devDependencies": {
+    "@ant-design/cssinjs": "^1.20.0",
     "@tanstack/eslint-plugin-query": "^5.35.6",
     "@types/node": "^20",
     "@types/react": "^18",

@@ -1,1 +1,1 @@
-export * from "./CategorySortBySidebar"
+export * from "./categorySortBySidebar"

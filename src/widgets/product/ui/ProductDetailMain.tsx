@@ -1,11 +1,14 @@
-import { Button, ConfigProvider, Divider, Space, Typography } from "antd";
+import { Divider, Space, Typography } from "antd";
 import { useState } from "react";
 
 import { CustomDivider } from "@/shared/ui";
 import { Database } from "@/shared/models";
 import { ProductHeart } from "@/entities/product/ui";
+import { AddToCartButton, BuyButton } from "@/features/product/ui";
 
 import { SelectedProduct } from "../model";
+
+import { ProductDetailCartBuyLayout } from "./productDetailCartBuyLayout";
 
 import {
   ProductColorSizeSelects,
@@ -14,8 +17,6 @@ import {
   ProductDiscountPrice,
   SelectedProductsTable,
 } from ".";
-import { ProductDetailCartBuyLayout } from "./ProductDetailCartBuyLayout";
-import { AddToCartButton, BuyButton } from "@/features/product/ui";
 
 interface props {
   data: Database["public"]["CompositeTypes"]["product_details_type"];
@@ -47,6 +48,8 @@ export function ProductDetailMain({ data }: props) {
     ]);
   };
 
+  const hasProductInState = selectedProducts.length > 0;
+
   return (
     <ProductDetailMainLayout>
       <CustomDivider
@@ -70,7 +73,8 @@ export function ProductDetailMain({ data }: props) {
       />
       <Divider style={{ marginBottom: 3 }} />
 
-      {selectedProducts.length > 0 && (
+      {hasProductInState && (
+        //
         <SelectedProductsTable
           selectedProducts={selectedProducts}
           onChange={setSelectedProducts}

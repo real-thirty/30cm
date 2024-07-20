@@ -27,10 +27,7 @@ export default function CategoryPage() {
 
   return (
     <div style={{ padding: "60px 50px 200px" }}>
-      <Layout
-        hasSider
-        style={{ margin: "100px 0 0", backgroundColor: "white" }}
-      >
+      <Layout hasSider style={{ margin: "100px 0 0" }}>
         <CategorySortBySidebar
           categories={categoryList}
           largeSort={largeSort}

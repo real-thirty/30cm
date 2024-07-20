@@ -3,7 +3,7 @@
 import { Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 
-import { ProductDetailPage } from "@/pages/product/ui/ProductDetailPage";
+import { ProductDetailPage } from "@/pages/product/ui/productDetailPage";
 
 interface props {
   params: {
